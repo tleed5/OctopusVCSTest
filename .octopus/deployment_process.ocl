@@ -19,6 +19,5 @@ step "hello-world-using-powershell" {
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
         }
-        worker_pool = "hosted-ubuntu"
     }
 }
