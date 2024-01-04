@@ -17,5 +17,16 @@ step "hello-world-using-powershell" {
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
+
+        packages "packle" {
+            acquisition_location = "Server"
+            feed = "octopus-server-built-in"
+            package_id = "packle"
+            properties = {
+                Extract = "True"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
     }
 }
