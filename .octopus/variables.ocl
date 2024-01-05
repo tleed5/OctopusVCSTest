@@ -1,0 +1,3 @@
+variable "Octopus.Calamari.Executable" {
+    value "/Users/travis/dev/Calamari/source/Calamari/bin/Debug/net6.0/Calamari" {}
+}
