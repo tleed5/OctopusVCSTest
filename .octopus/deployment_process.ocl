@@ -41,7 +41,7 @@ step "run-a-script" {
             Octopus.Action.Package.FeedId = "octopus-server-built-in"
             Octopus.Action.Package.PackageId = "package"
             Octopus.Action.RunOnServer = "true"
-            Octopus.Action.Script.ScriptFileName = "Test.sh"
+            Octopus.Action.Script.ScriptFileName = "package/Test.sh"
             Octopus.Action.Script.ScriptSource = "Package"
         }
 
