@@ -31,6 +31,12 @@ step "run-a-script-2" {
             Octopus.Action.RunOnServer = "true"
             Octopus.Action.Script.ScriptFileName = "Test.sh"
             Octopus.Action.Script.ScriptSource = "Package"
+            OctopusUseBundledTooling = "False"
+        }
+
+        container {
+            feed = "feed"
+            image = "octopusdeploy/worker-tools:6.1.0-ubuntu.22.04"
         }
 
         packages {
