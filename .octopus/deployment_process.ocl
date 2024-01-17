@@ -1,14 +1,11 @@
 step "run-a-script" {
     name = "Run a Script"
-    properties = {
-        Octopus.Action.TargetRoles = "Qwerty"
-    }
 
     action {
         action_type = "Octopus.Script"
         properties = {
             Octopus.Action.GitRepository.Source = "External"
-            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.RunOnServer = "true"
             Octopus.Action.Script.ScriptFileName = "Test.sh"
             Octopus.Action.Script.ScriptSource = "GitRepository"
         }
