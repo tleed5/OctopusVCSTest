@@ -18,3 +18,46 @@ step "run-a-script" {
         }
     }
 }
+
+step "kustomize" {
+    name = "Kustomize"
+    package_requirement = "AfterPackageAcquisition"
+    properties = {
+        Octopus.Action.TargetRoles = "Qwerty"
+    }
+
+    action {
+        action_type = "kustomize"
+        step_package_version = "2.0.2"
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
+        }
+
+        inputs {
+            overlayPath = "foobar/"
+
+            gitSource {
+                defaultBranch = "main"
+                gitCredential = "GitCredentials-1"
+                isAnonymous = false
+                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
+                url = "https://github.com/tleed5/OctopusVCSTest.git"
+            }
+
+            kubernetesObjectStatus {
+                enabled = false
+                timeout = 180
+                waitForJobs = false
+            }
+
+            substituteFiles {
+                filesToTarget = "*.yaml"
+            }
+        }
+    }
+}
