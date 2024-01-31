@@ -61,3 +61,38 @@ step "kustomize" {
         }
     }
 }
+
+step "kustomize-new" {
+    name = "Kustomize New"
+    properties = {
+        Octopus.Action.TargetRoles = "Qwerty"
+    }
+
+    action {
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays/#{Octopus.Environment.Name}"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "overlays/#{Octopus.Environment.Name}/*.yaml"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+        }
+
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "feed"
+            package_id = "nginx"
+            properties = {
+                Extract = "False"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
