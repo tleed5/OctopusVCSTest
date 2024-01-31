@@ -111,3 +111,41 @@ step "kustomize-new" {
         }
     }
 }
+
+step "deploy-raw-kubernetes-yaml" {
+    name = "Deploy raw Kubernetes YAML"
+    properties = {
+        Octopus.Action.TargetRoles = "Qwerty"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployRawYaml"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "my/folder/*"
+            Octopus.Action.KubernetesContainers.Namespace = "Default"
+            Octopus.Action.Package.JsonConfigurationVariablesTargets = "**/*.{yml,yaml}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            file_path_filters = ["my/folder/*"]
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+        }
+
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "feed"
+            package_id = "nginx"
+            properties = {
+                Extract = "False"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
