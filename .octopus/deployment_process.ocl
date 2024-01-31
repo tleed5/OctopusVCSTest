@@ -79,9 +79,6 @@ step "kustomize" {
 
 step "kustomize-new" {
     name = "Kustomize New"
-    properties = {
-        Octopus.Action.TargetRoles = "Qwerty"
-    }
 
     action {
         action_type = "Octopus.Kubernetes.Kustomize"
