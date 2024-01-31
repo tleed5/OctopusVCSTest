@@ -38,8 +38,23 @@ step "kustomize" {
             step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "feed"
+            package_id = "nginx"
+            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+        }
+
         inputs {
             overlayPath = "foobar/"
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1001"
+                    imageName = "nginx"
+                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+                }
+            }
 
             gitSource {
                 defaultBranch = "main"
@@ -50,7 +65,7 @@ step "kustomize" {
             }
 
             kubernetesObjectStatus {
-                enabled = false
+                enabled = true
                 timeout = 180
                 waitForJobs = false
             }
