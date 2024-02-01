@@ -7,5 +7,5 @@ variable "K8S.Namespace" {
 }
 
 variable "K8S.DeploymentName" {
-    value "TestDeploymentName" {}
+    value "deployment-dev" {}
 }
