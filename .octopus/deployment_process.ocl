@@ -69,7 +69,7 @@ step "kustomize-new" {
             Octopus.Action.Kubernetes.DeploymentTimeout = "180"
             Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays/#{Octopus.Environment.Name}"
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.SubstituteInFiles.TargetFiles = "overlays/#{Octopus.Environment.Name}/*.yaml"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "**/*.yaml"
         }
 
         git_dependencies {
