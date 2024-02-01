@@ -78,5 +78,16 @@ step "kustomize-new" {
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
+
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "feed"
+            package_id = "nginx"
+            properties = {
+                Extract = "False"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
     }
 }
