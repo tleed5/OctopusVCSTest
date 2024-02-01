@@ -1,3 +1,11 @@
 variable "Octopus.Calamari.Executable" {
     value "/Users/travis/dev/Calamari/source/Calamari/bin/Debug/net6.0/Calamari" {}
 }
+
+variable "K8S.Namespace" {
+    value "default" {}
+}
+
+variable "K8S.DeploymentName" {
+    value "TestDeploymentName" {}
+}
