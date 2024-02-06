@@ -5,8 +5,9 @@ step "kustomize" {
         Octopus.Action.TargetRoles = "Qwerty"
     }
 
-    action {
+    action "kustomize" {
         action_type = "kustomize"
+        name = "Kustomize"
         step_package_version = "2.0.2"
 
         git_dependencies {
@@ -52,6 +53,23 @@ step "kustomize" {
             substituteFiles {
                 filesToTarget = "*.yaml"
             }
+        }
+    }
+
+    action "kustomize-child" {
+        action_type = "Octopus.Kubernetes.Kustomize"
+        name = "Kustomize Child"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays/dev"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
     }
 }
