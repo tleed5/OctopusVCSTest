@@ -7,7 +7,6 @@ step "kustomize" {
 
     action {
         action_type = "kustomize"
-        is_disabled = true
         step_package_version = "2.0.2"
 
         git_dependencies {
