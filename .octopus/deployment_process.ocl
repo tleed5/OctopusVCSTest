@@ -1,5 +1,5 @@
 step "kustomize" {
-    name = "Kustomize"
+    name = "Kustomize Parent"
     package_requirement = "AfterPackageAcquisition"
     properties = {
         Octopus.Action.TargetRoles = "Qwerty"
@@ -7,7 +7,7 @@ step "kustomize" {
 
     action "kustomize" {
         action_type = "kustomize"
-        name = "Kustomize"
+        name = "Kustomize Child One"
         step_package_version = "2.0.2"
 
         git_dependencies {
@@ -58,7 +58,7 @@ step "kustomize" {
 
     action "kustomize-child" {
         action_type = "kustomize"
-        name = "Kustomize"
+        name = "Kustomize Child Two"
         step_package_version = "2.0.2"
 
         git_dependencies {
@@ -109,15 +109,18 @@ step "kustomize" {
 }
 
 step "kustomize-1" {
-    name = "Kustomize 1"
+    condition = "Always"
+    name = "Kustomize Two"
     package_requirement = "AfterPackageAcquisition"
     properties = {
         Octopus.Action.TargetRoles = "LocalK8s"
     }
+    start_trigger = "StartWithPrevious"
 
-    action "kustomize-1" {
+    action {
         action_type = "kustomize"
-        name = "Kustomize"
+        environments = ["development", "staging", "production"]
+        is_required = true
         step_package_version = "2.0.2"
 
         git_dependencies {
@@ -135,6 +138,13 @@ step "kustomize-1" {
             step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
         }
 
+        packages "k8s-workertools" {
+            acquisition_location = "NotAcquired"
+            feed = "feed"
+            package_id = "octopuslabs/k8s-workertools"
+            step_package_inputs_reference_id = "77060668-0ae1-49e2-a465-eca99ef5b69a"
+        }
+
         inputs {
             overlayPath = "foobar/"
 
@@ -143,6 +153,14 @@ step "kustomize-1" {
                     feedId = "Feeds-1001"
                     imageName = "nginx"
                     referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+                }
+            }
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1001"
+                    imageName = "octopuslabs/k8s-workertools"
+                    referenceId = "77060668-0ae1-49e2-a465-eca99ef5b69a"
                 }
             }
 
