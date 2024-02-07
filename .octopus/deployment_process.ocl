@@ -110,6 +110,7 @@ step "kustomize" {
 
 step "kustomize-1" {
     name = "Kustomize 1"
+    package_requirement = "AfterPackageAcquisition"
     properties = {
         Octopus.Action.TargetRoles = "LocalK8s"
     }
