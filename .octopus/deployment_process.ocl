@@ -6,104 +6,54 @@ step "kustomize" {
     }
 
     action "kustomize" {
-        action_type = "kustomize"
         name = "Kustomize Child One Updated 2"
-        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
-            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
-            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
         }
 
-        inputs {
-            overlayPath = "foobar/"
-
-            containerImageReferences {
-                containerImageReference {
-                    feedId = "Feeds-1001"
-                    imageName = "nginx"
-                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
-                }
-            }
-
-            gitSource {
-                defaultBranch = "main"
-                gitCredential = "GitCredentials-1"
-                isAnonymous = false
-                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
-                url = "https://github.com/tleed5/OctopusVCSTest.git"
-            }
-
-            kubernetesObjectStatus {
-                enabled = true
-                timeout = 180
-                waitForJobs = false
-            }
-
-            substituteFiles {
-                filesToTarget = "*.yaml"
-            }
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = 180
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = true
+            Octopus.Action.KubernetesContainers.DeploymentWait = false
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
     }
 
     action "kustomize-child" {
-        action_type = "kustomize"
         name = "Kustomize Child Two"
-        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
-            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
-            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
         }
 
-        inputs {
-            overlayPath = "foobar/"
-
-            containerImageReferences {
-                containerImageReference {
-                    feedId = "Feeds-1001"
-                    imageName = "nginx"
-                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
-                }
-            }
-
-            gitSource {
-                defaultBranch = "main"
-                gitCredential = "GitCredentials-1"
-                isAnonymous = false
-                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
-                url = "https://github.com/tleed5/OctopusVCSTest.git"
-            }
-
-            kubernetesObjectStatus {
-                enabled = true
-                timeout = 180
-                waitForJobs = false
-            }
-
-            substituteFiles {
-                filesToTarget = "*.yaml"
-            }
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = 180
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = true
+            Octopus.Action.KubernetesContainers.DeploymentWait = false
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
     }
 }
@@ -118,69 +68,35 @@ step "kustomize-1" {
     start_trigger = "StartWithPrevious"
 
     action {
-        action_type = "kustomize"
         environments = ["development", "staging", "production"]
         is_required = true
-        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
-            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
-            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
         }
 
         packages "k8s-workertools" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "octopuslabs/k8s-workertools"
-            step_package_inputs_reference_id = "77060668-0ae1-49e2-a465-eca99ef5b69a"
         }
 
-        inputs {
-            overlayPath = "foobar/"
-
-            containerImageReferences {
-                containerImageReference {
-                    feedId = "Feeds-1001"
-                    imageName = "nginx"
-                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
-                }
-            }
-
-            containerImageReferences {
-                containerImageReference {
-                    feedId = "Feeds-1001"
-                    imageName = "octopuslabs/k8s-workertools"
-                    referenceId = "77060668-0ae1-49e2-a465-eca99ef5b69a"
-                }
-            }
-
-            gitSource {
-                defaultBranch = "main"
-                gitCredential = "GitCredentials-1"
-                isAnonymous = false
-                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
-                url = "https://github.com/tleed5/OctopusVCSTest.git"
-            }
-
-            kubernetesObjectStatus {
-                enabled = true
-                timeout = 180
-                waitForJobs = false
-            }
-
-            substituteFiles {
-                filesToTarget = "*.yaml"
-            }
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = 180
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = true
+            Octopus.Action.KubernetesContainers.DeploymentWait = false
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
     }
 }
