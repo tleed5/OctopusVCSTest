@@ -6,52 +6,104 @@ step "kustomize" {
     }
 
     action "kustomize" {
-        action_type = "Octopus.Kubernetes.Kustomize"
-        name = "Kustomize Name Change"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.KubernetesContainers.DeploymentWait = "False"
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
+        action_type = "kustomize"
+        name = "Kustomize"
+        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
+            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+        }
+
+        inputs {
+            overlayPath = "foobar/"
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1001"
+                    imageName = "nginx"
+                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+                }
+            }
+
+            gitSource {
+                defaultBranch = "main"
+                gitCredential = "GitCredentials-1"
+                isAnonymous = false
+                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
+                url = "https://github.com/tleed5/OctopusVCSTest.git"
+            }
+
+            kubernetesObjectStatus {
+                enabled = true
+                timeout = 180
+                waitForJobs = false
+            }
+
+            substituteFiles {
+                filesToTarget = "*.yaml"
+            }
         }
     }
 
     action "kustomize-child" {
-        action_type = "Octopus.Kubernetes.Kustomize"
-        name = "Kustomize Child"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.KubernetesContainers.DeploymentWait = "False"
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
+        action_type = "kustomize"
+        name = "Kustomize"
+        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
+            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+        }
+
+        inputs {
+            overlayPath = "foobar/"
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1001"
+                    imageName = "nginx"
+                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+                }
+            }
+
+            gitSource {
+                defaultBranch = "main"
+                gitCredential = "GitCredentials-1"
+                isAnonymous = false
+                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
+                url = "https://github.com/tleed5/OctopusVCSTest.git"
+            }
+
+            kubernetesObjectStatus {
+                enabled = true
+                timeout = 180
+                waitForJobs = false
+            }
+
+            substituteFiles {
+                filesToTarget = "*.yaml"
+            }
         }
     }
 }
@@ -62,27 +114,54 @@ step "kustomize-1" {
         Octopus.Action.TargetRoles = "LocalK8s"
     }
 
-    action {
-        action_type = "Octopus.Kubernetes.Kustomize"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
-            Octopus.Action.KubernetesContainers.DeploymentWait = "False"
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
+    action "kustomize-1" {
+        action_type = "kustomize"
+        name = "Kustomize"
+        step_package_version = "2.0.2"
 
         git_dependencies {
             default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+            step_package_inputs_reference_id = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
         }
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
+            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+        }
+
+        inputs {
+            overlayPath = "foobar/"
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1001"
+                    imageName = "nginx"
+                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
+                }
+            }
+
+            gitSource {
+                defaultBranch = "main"
+                gitCredential = "GitCredentials-1"
+                isAnonymous = false
+                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
+                url = "https://github.com/tleed5/OctopusVCSTest.git"
+            }
+
+            kubernetesObjectStatus {
+                enabled = true
+                timeout = 180
+                waitForJobs = false
+            }
+
+            substituteFiles {
+                filesToTarget = "*.yaml"
+            }
         }
     }
 }
