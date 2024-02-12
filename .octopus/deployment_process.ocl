@@ -6,42 +6,22 @@ step "kustomize-1" {
     }
 
     action "kustomize-1" {
-        action_type = "kustomize"
         name = "Kustomize"
-        step_package_version = "2.0.2"
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
-            step_package_inputs_reference_id = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
         }
 
-        inputs {
-            overlayPath = "foobar/"
-
-            containerImageReferences {
-                containerImageReference {
-                    feedId = "Feeds-1001"
-                    imageName = "nginx"
-                    referenceId = "98dc09a3-6dfb-40dd-be0e-aa46d09ceae3"
-                }
-            }
-
-            gitSource {
-                type = "project"
-                referenceId = "e3f33c5f-8b30-45ec-bc97-48cdc1fb462c"
-            }
-
-            kubernetesObjectStatus {
-                enabled = true
-                timeout = 180
-                waitForJobs = false
-            }
-
-            substituteFiles {
-                filesToTarget = "*.yaml"
-            }
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = 180
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = true
+            Octopus.Action.KubernetesContainers.DeploymentWait = false
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
     }
 }
