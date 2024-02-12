@@ -1,63 +1,3 @@
-step "kustomize" {
-    name = "Kustomize"
-    package_requirement = "AfterPackageAcquisition"
-    properties = {
-        Octopus.Action.TargetRoles = "Qwerty"
-    }
-
-    action "kustomize" {
-        name = "Kustomize"
-
-        git_dependencies {
-            default_branch = "main"
-            git_credential_id = "GitCredentials-1"
-            git_credential_type = "Library"
-            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
-        }
-
-        packages "nginx" {
-            acquisition_location = "NotAcquired"
-            feed = "feed"
-            package_id = "nginx"
-        }
-
-        action_type = "Octopus.Kubernetes.Kustomize"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = 180
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = true
-            Octopus.Action.KubernetesContainers.DeploymentWait = false
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
-    }
-
-    action "kustomize-child" {
-        name = "Kustomize"
-
-        git_dependencies {
-            default_branch = "main"
-            git_credential_id = "GitCredentials-1"
-            git_credential_type = "Library"
-            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
-        }
-
-        packages "nginx" {
-            acquisition_location = "NotAcquired"
-            feed = "feed"
-            package_id = "nginx"
-        }
-
-        action_type = "Octopus.Kubernetes.Kustomize"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = 180
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = true
-            Octopus.Action.KubernetesContainers.DeploymentWait = false
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
-    }
-}
-
 step "kustomize-1" {
     name = "Kustomize 1"
     package_requirement = "AfterPackageAcquisition"
@@ -65,8 +5,16 @@ step "kustomize-1" {
         Octopus.Action.TargetRoles = "LocalK8s"
     }
 
-    action "kustomize-1" {
+    action {
+        action_type = "Octopus.Kubernetes.Kustomize"
         name = "Kustomize"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.KubernetesContainers.DeploymentWait = "False"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
+        }
 
         git_dependencies {
             default_branch = "main"
@@ -79,15 +27,6 @@ step "kustomize-1" {
             acquisition_location = "NotAcquired"
             feed = "feed"
             package_id = "nginx"
-        }
-
-        action_type = "Octopus.Kubernetes.Kustomize"
-        properties = {
-            Octopus.Action.Kubernetes.DeploymentTimeout = 180
-            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
-            Octopus.Action.Kubernetes.ResourceStatusCheck = true
-            Octopus.Action.KubernetesContainers.DeploymentWait = false
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
     }
 }
