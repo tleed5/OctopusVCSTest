@@ -9,18 +9,12 @@ step "kustomize-1" {
         action_type = "Octopus.Kubernetes.Kustomize"
         name = "Kustomize"
         properties = {
+            Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.Kubernetes.DeploymentTimeout = "180"
             Octopus.Action.Kubernetes.Kustomize.OverlayPath = "foobar/"
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
             Octopus.Action.KubernetesContainers.DeploymentWait = "False"
             Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
-        }
-
-        git_dependencies {
-            default_branch = "main"
-            git_credential_id = "GitCredentials-1"
-            git_credential_type = "Library"
-            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
 
         packages "nginx" {
