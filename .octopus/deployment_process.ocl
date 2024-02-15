@@ -23,3 +23,23 @@ step "kustomize-1" {
         }
     }
 }
+
+step "deploy-raw-kubernetes-yaml" {
+    name = "Deploy raw Kubernetes YAML"
+    properties = {
+        Octopus.Action.TargetRoles = "LocalK8s"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployRawYaml"
+        properties = {
+            Octopus.Action.GitRepository.FilePathFilters = "yaml/*"
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "yaml/*"
+            Octopus.Action.KubernetesContainers.Namespace = "default"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+    }
+}
