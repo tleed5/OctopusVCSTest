@@ -24,3 +24,22 @@ step "kustomize-1" {
         }
     }
 }
+
+step "kustomize-1-1" {
+    name = "Kustomize 1"
+    properties = {
+        Octopus.Action.TargetRoles = "LocalK8s"
+    }
+
+    action {
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "**/*.yaml"
+        }
+    }
+}
