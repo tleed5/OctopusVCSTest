@@ -32,6 +32,7 @@ step "deploy-raw-kubernetes-yaml" {
 
     action {
         action_type = "Octopus.KubernetesDeployRawYaml"
+        is_disabled = true
         properties = {
             Octopus.Action.GitRepository.FilePathFilters = "yaml/*"
             Octopus.Action.GitRepository.Source = "Project"
