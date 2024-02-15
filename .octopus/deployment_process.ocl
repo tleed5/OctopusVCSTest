@@ -34,12 +34,19 @@ step "kustomize-1-1" {
     action {
         action_type = "Octopus.Kubernetes.Kustomize"
         properties = {
-            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.GitRepository.Source = "External"
             Octopus.Action.Kubernetes.DeploymentTimeout = "180"
             Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays"
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
             Octopus.Action.Script.ScriptSource = "GitRepository"
             Octopus.Action.SubstituteInFiles.TargetFiles = "**/*.yaml"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/OctopusDeploy/OctopusClients.git"
         }
     }
 }
