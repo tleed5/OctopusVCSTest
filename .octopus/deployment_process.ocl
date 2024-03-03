@@ -1,0 +1,23 @@
+step "run-script" {
+    name = "Run Script"
+
+    action "run-script-2-0" {
+        action_type = "Octopus.Script"
+        is_required = true
+        name = "Run Script 2.0"
+        properties = {
+            Octopus.Action.EnabledFeatures = "Octopus.Features.SubstituteInFiles"
+            Octopus.Action.RunOnServer = "True"
+            Octopus.Action.Script.ScriptFileName = "Test.sh"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+            Octopus.Action.SubstituteInFiles.Enabled = "True"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-21"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+        }
+    }
+}
