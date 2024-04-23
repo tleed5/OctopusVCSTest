@@ -106,7 +106,7 @@ step "deploy-with-kustomize" {
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
-            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "**/*.yaml"
         }
         worker_pool_variable = ""
 
