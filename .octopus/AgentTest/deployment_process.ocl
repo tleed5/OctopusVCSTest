@@ -265,7 +265,7 @@ step "configure-and-apply-kubernetes-resources" {
                 EOT
             Octopus.Action.KubernetesContainers.DeploymentAnnotations = "[]"
             Octopus.Action.KubernetesContainers.DeploymentLabels = "{}"
-            Octopus.Action.KubernetesContainers.DeploymentName = "pii"
+            Octopus.Action.KubernetesContainers.DeploymentName = "piiiiiiiii"
             Octopus.Action.KubernetesContainers.DeploymentResourceType = "Job"
             Octopus.Action.KubernetesContainers.DeploymentStyle = "RollingUpdate"
             Octopus.Action.KubernetesContainers.DnsConfigOptions = "[]"
