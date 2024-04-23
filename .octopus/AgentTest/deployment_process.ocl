@@ -112,7 +112,7 @@ step "deploy-with-kustomize" {
 
         packages "nginx" {
             acquisition_location = "NotAcquired"
-            feed = "docker-anon"
+            feed = "docker-public-read-only"
             package_id = "nginx"
             properties = {
                 Extract = "False"
@@ -140,7 +140,129 @@ step "configure-and-apply-kubernetes-resources" {
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
             Octopus.Action.KubernetesContainers.BackoffLimit = "4"
             Octopus.Action.KubernetesContainers.CombinedVolumes = "[]"
-            Octopus.Action.KubernetesContainers.Containers = "[{\"IsNew\":true,\"InitContainer\":\"False\",\"Ports\":[],\"EnvironmentVariables\":[],\"SecretEnvironmentVariables\":[],\"SecretEnvFromSource\":[],\"ConfigMapEnvironmentVariables\":[],\"ConfigMapEnvFromSource\":[],\"FieldRefEnvironmentVariables\":[],\"VolumeMounts\":[],\"AcquisitionLocation\":\"NotAcquired\",\"Name\":\"pi\",\"PackageId\":\"perl\",\"FeedId\":\"Feeds-1081\",\"Properties\":{},\"Command\":[\"perl\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"Args\":[],\"Resources\":{\"requests\":{\"memory\":\"\",\"cpu\":\"\",\"ephemeralStorage\":\"\"},\"limits\":{\"memory\":\"\",\"cpu\":\"\",\"ephemeralStorage\":\"\",\"nvidiaGpu\":\"\",\"amdGpu\":\"\"}},\"LivenessProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"ReadinessProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"StartupProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"Lifecycle\":{},\"SecurityContext\":{\"allowPrivilegeEscalation\":\"\",\"privileged\":\"\",\"readOnlyRootFilesystem\":\"\",\"runAsGroup\":\"\",\"runAsNonRoot\":\"\",\"runAsUser\":\"\",\"capabilities\":{\"add\":[],\"drop\":[]},\"seLinuxOptions\":{\"level\":\"\",\"role\":\"\",\"type\":\"\",\"user\":\"\"}}}]"
+            Octopus.Action.KubernetesContainers.Containers = <<-EOT
+                [
+                 {
+                  "Name": "pi",
+                  "Ports": [],
+                  "EnvironmentVariables": [],
+                  "SecretEnvironmentVariables": [],
+                  "ConfigMapEnvironmentVariables": [],
+                  "FieldRefEnvironmentVariables": [],
+                  "ConfigMapEnvFromSource": [],
+                  "SecretEnvFromSource": [],
+                  "VolumeMounts": [],
+                  "Resources": {
+                   "requests": {
+                    "memory": "",
+                    "cpu": "",
+                    "ephemeralStorage": ""
+                   },
+                   "limits": {
+                    "memory": "",
+                    "cpu": "",
+                    "ephemeralStorage": "",
+                    "nvidiaGpu": "",
+                    "amdGpu": ""
+                   }
+                  },
+                  "LivenessProbe": {
+                   "failureThreshold": "",
+                   "initialDelaySeconds": "",
+                   "periodSeconds": "",
+                   "successThreshold": "",
+                   "timeoutSeconds": "",
+                   "type": null,
+                   "exec": {
+                    "command": []
+                   },
+                   "httpGet": {
+                    "host": "",
+                    "path": "",
+                    "port": "",
+                    "scheme": "",
+                    "httpHeaders": []
+                   },
+                   "tcpSocket": {
+                    "host": "",
+                    "port": ""
+                   }
+                  },
+                  "ReadinessProbe": {
+                   "failureThreshold": "",
+                   "initialDelaySeconds": "",
+                   "periodSeconds": "",
+                   "successThreshold": "",
+                   "timeoutSeconds": "",
+                   "type": null,
+                   "exec": {
+                    "command": []
+                   },
+                   "httpGet": {
+                    "host": "",
+                    "path": "",
+                    "port": "",
+                    "scheme": "",
+                    "httpHeaders": []
+                   },
+                   "tcpSocket": {
+                    "host": "",
+                    "port": ""
+                   }
+                  },
+                  "StartupProbe": {
+                   "failureThreshold": "",
+                   "initialDelaySeconds": "",
+                   "periodSeconds": "",
+                   "successThreshold": "",
+                   "timeoutSeconds": "",
+                   "type": null,
+                   "exec": {
+                    "command": []
+                   },
+                   "httpGet": {
+                    "host": "",
+                    "path": "",
+                    "port": "",
+                    "scheme": "",
+                    "httpHeaders": []
+                   },
+                   "tcpSocket": {
+                    "host": "",
+                    "port": ""
+                   }
+                  },
+                  "Command": [
+                   "perl",
+                   "-Mbignum=bpi",
+                   "-wle",
+                   "print bpi(2000)"
+                  ],
+                  "Args": [],
+                  "InitContainer": "False",
+                  "SecurityContext": {
+                   "allowPrivilegeEscalation": "",
+                   "privileged": "",
+                   "readOnlyRootFilesystem": "",
+                   "runAsGroup": "",
+                   "runAsNonRoot": "",
+                   "runAsUser": "",
+                   "capabilities": {
+                    "add": [],
+                    "drop": []
+                   },
+                   "seLinuxOptions": {
+                    "level": "",
+                    "role": "",
+                    "type": "",
+                    "user": ""
+                   }
+                  },
+                  "Lifecycle": {},
+                  "CreateFeedSecrets": "True"
+                 }
+                ]
+                EOT
             Octopus.Action.KubernetesContainers.DeploymentAnnotations = "[]"
             Octopus.Action.KubernetesContainers.DeploymentLabels = "{}"
             Octopus.Action.KubernetesContainers.DeploymentName = "pii"
@@ -168,13 +290,8 @@ step "configure-and-apply-kubernetes-resources" {
 
         packages "pi" {
             acquisition_location = "NotAcquired"
-            feed = "docker-anon"
+            feed = "docker-public-read-only"
             package_id = "perl"
-            properties = {
-                Extract = "False"
-                PackageParameterName = ""
-                SelectionMode = "immediate"
-            }
         }
     }
 }
@@ -223,6 +340,7 @@ step "configure-and-apply-a-kubernetes-service" {
             Octopus.Action.KubernetesContainers.ServiceName = "my-service"
             Octopus.Action.KubernetesContainers.ServicePorts = "[{\"protocol\":\"TCP\",\"port\":\"80\",\"targetPort\":\"9376\"}]"
             Octopus.Action.KubernetesContainers.ServiceType = "ClusterIP"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
     }
@@ -249,6 +367,7 @@ step "configure-and-apply-a-kubernetes-ingress" {
             Octopus.Action.KubernetesContainers.IngressRules = "[{\"http\":{\"paths\":[{\"key\":\"/testpath\",\"value\":\"80\",\"option\":\"test\",\"option2\":\"Prefix\"}]}}]"
             Octopus.Action.KubernetesContainers.IngressTlsCertificates = "[]"
             Octopus.Action.KubernetesContainers.Namespace = "#{K8s.Namespace}"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
     }
@@ -271,6 +390,7 @@ step "configure-and-apply-a-kubernetes-secret" {
             Octopus.Action.KubernetesContainers.Namespace = "#{K8s.Namespace}"
             Octopus.Action.KubernetesContainers.SecretName = "secret-dockercfg"
             Octopus.Action.KubernetesContainers.SecretValues = "{\".dockercfg\":\"{\\\"auths\\\":{\\\"https://example/v1/\\\":{\\\"auth\\\":\\\"opensesame\\\"}}}\\n\"}"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
     }
