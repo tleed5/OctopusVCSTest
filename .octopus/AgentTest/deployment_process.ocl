@@ -89,6 +89,7 @@ step "run-a-kubectl-script" {
 }
 
 step "deploy-with-kustomize" {
+    condition = "Always"
     name = "Deploy with Kustomize"
     properties = {
         Octopus.Action.TargetRoles = "travisl-aks-cluster"
@@ -103,9 +104,21 @@ step "deploy-with-kustomize" {
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
             Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "GitRepository"
             Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
         worker_pool_variable = ""
+
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "docker-anon"
+            package_id = "nginx"
+            properties = {
+                Extract = "False"
+                Purpose = "DockerImageReference"
+                SelectionMode = "immediate"
+            }
+        }
     }
 }
