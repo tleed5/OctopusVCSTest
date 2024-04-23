@@ -122,3 +122,79 @@ step "deploy-with-kustomize" {
         }
     }
 }
+
+step "configure-and-apply-kubernetes-resources" {
+    condition = "Always"
+    name = "Configure and apply Kubernetes resources"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployContainers"
+        properties = {
+            Octopus.Action.EnabledFeatures = ",Octopus.Features.KubernetesService,Octopus.Features.KubernetesIngress,Octopus.Features.KubernetesConfigMap,Octopus.Features.KubernetesSecret"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.BackoffLimit = "4"
+            Octopus.Action.KubernetesContainers.CombinedVolumes = "[]"
+            Octopus.Action.KubernetesContainers.Containers = "[{\"IsNew\":true,\"InitContainer\":\"False\",\"Ports\":[],\"EnvironmentVariables\":[],\"SecretEnvironmentVariables\":[],\"SecretEnvFromSource\":[],\"ConfigMapEnvironmentVariables\":[],\"ConfigMapEnvFromSource\":[],\"FieldRefEnvironmentVariables\":[],\"VolumeMounts\":[],\"AcquisitionLocation\":\"NotAcquired\",\"Name\":\"pi\",\"PackageId\":\"perl\",\"FeedId\":\"Feeds-1081\",\"Properties\":{},\"Command\":[\"perl\",\"-Mbignum=bpi\",\"-wle\",\"print bpi(2000)\"],\"Args\":[],\"Resources\":{\"requests\":{\"memory\":\"\",\"cpu\":\"\",\"ephemeralStorage\":\"\"},\"limits\":{\"memory\":\"\",\"cpu\":\"\",\"ephemeralStorage\":\"\",\"nvidiaGpu\":\"\",\"amdGpu\":\"\"}},\"LivenessProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"ReadinessProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"StartupProbe\":{\"failureThreshold\":\"\",\"initialDelaySeconds\":\"\",\"periodSeconds\":\"\",\"successThreshold\":\"\",\"timeoutSeconds\":\"\",\"type\":null,\"exec\":{\"command\":[]},\"httpGet\":{\"host\":\"\",\"path\":\"\",\"port\":\"\",\"scheme\":\"\",\"httpHeaders\":[]},\"tcpSocket\":{\"host\":\"\",\"port\":\"\"}},\"Lifecycle\":{},\"SecurityContext\":{\"allowPrivilegeEscalation\":\"\",\"privileged\":\"\",\"readOnlyRootFilesystem\":\"\",\"runAsGroup\":\"\",\"runAsNonRoot\":\"\",\"runAsUser\":\"\",\"capabilities\":{\"add\":[],\"drop\":[]},\"seLinuxOptions\":{\"level\":\"\",\"role\":\"\",\"type\":\"\",\"user\":\"\"}}}]"
+            Octopus.Action.KubernetesContainers.DeploymentAnnotations = "[]"
+            Octopus.Action.KubernetesContainers.DeploymentLabels = "{}"
+            Octopus.Action.KubernetesContainers.DeploymentName = "pii"
+            Octopus.Action.KubernetesContainers.DeploymentResourceType = "Job"
+            Octopus.Action.KubernetesContainers.DeploymentStyle = "RollingUpdate"
+            Octopus.Action.KubernetesContainers.DnsConfigOptions = "[]"
+            Octopus.Action.KubernetesContainers.HostAliases = "[]"
+            Octopus.Action.KubernetesContainers.IngressAnnotations = "[]"
+            Octopus.Action.KubernetesContainers.Namespace = "#{K8s.Namespace}"
+            Octopus.Action.KubernetesContainers.NodeAffinity = "[]"
+            Octopus.Action.KubernetesContainers.PersistentVolumeClaims = "[]"
+            Octopus.Action.KubernetesContainers.PodAffinity = "[]"
+            Octopus.Action.KubernetesContainers.PodAnnotations = "[]"
+            Octopus.Action.KubernetesContainers.PodAntiAffinity = "[]"
+            Octopus.Action.KubernetesContainers.PodSecuritySysctls = "[]"
+            Octopus.Action.KubernetesContainers.Replicas = "1"
+            Octopus.Action.KubernetesContainers.RestartPolicy = "Never"
+            Octopus.Action.KubernetesContainers.ServiceNameType = "External"
+            Octopus.Action.KubernetesContainers.ServiceType = "ClusterIP"
+            Octopus.Action.KubernetesContainers.Tolerations = "[]"
+        }
+        worker_pool_variable = ""
+
+        packages "pi" {
+            acquisition_location = "NotAcquired"
+            feed = "docker-anon"
+            package_id = "perl"
+            properties = {
+                Extract = "False"
+                PackageParameterName = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
+
+step "configure-and-apply-a-kubernetes-configmap" {
+    condition = "Always"
+    name = "Configure and apply a Kubernetes ConfigMap"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployConfigMap"
+        properties = {
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.ConfigMapName = "game-demo"
+            Octopus.Action.KubernetesContainers.ConfigMapValues = "{\"player_initial_lives\":\"3\",\"ui_properties_file_name\":\"user-interface.properties\",\"game.properties\":\"enemy.types=aliens,monsters\\nplayer.maximum-lives=5    \\n\",\"user-interface.properties\":\"color.good=purple\\ncolor.bad=yellow\\nallow.textmode=true    \\n\"}"
+            Octopus.Action.KubernetesContainers.DeploymentLabels = "{}"
+            Octopus.Action.KubernetesContainers.Namespace = "#{K8s.Namespace}"
+        }
+        worker_pool_variable = ""
+    }
+}
