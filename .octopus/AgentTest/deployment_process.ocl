@@ -15,6 +15,7 @@ step "deploy-a-helm-chart" {
             Octopus.Action.Package.DownloadOnTentacle = "False"
             Octopus.Action.Package.FeedId = "helm-nginx"
             Octopus.Action.Package.PackageId = "nginx-ingress"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "Package"
         }
         worker_pool_variable = ""
@@ -60,6 +61,7 @@ step "deploy-kubernetes-yaml" {
                   backoffLimit: 4
                 EOT
             Octopus.Action.KubernetesContainers.Namespace = "travisl-script-image-test"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptSource = "Inline"
         }
         worker_pool_variable = ""
@@ -77,9 +79,32 @@ step "run-a-kubectl-script" {
         action_type = "Octopus.KubernetesRunScript"
         properties = {
             Octopus.Action.KubernetesContainers.Namespace = "travisl-script-image-test"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptBody = "kubectl get pods -A"
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
+
+step "deploy-with-kustomize" {
+    name = "Deploy with Kustomize"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.Kubernetes.Kustomize"
+        properties = {
+            Octopus.Action.GitRepository.Source = "Project"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.Kustomize.OverlayPath = "overlays/dev"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+            Octopus.Action.SubstituteInFiles.TargetFiles = "*.yaml"
         }
         worker_pool_variable = ""
     }
