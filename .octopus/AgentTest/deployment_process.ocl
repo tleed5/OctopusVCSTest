@@ -1,0 +1,86 @@
+step "deploy-a-helm-chart" {
+    condition = "Always"
+    name = "Deploy a Helm Chart"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.HelmChartUpgrade"
+        properties = {
+            Octopus.Action.Helm.AdditionalArgs = "--create-namespace --namespace travisl-script-image-test"
+            Octopus.Action.Helm.ClientVersion = "V3"
+            Octopus.Action.Helm.ReleaseName = "#{Octopus.Environment.Name | ToLower}-nginx-ingress"
+            Octopus.Action.Helm.ResetValues = "True"
+            Octopus.Action.Package.DownloadOnTentacle = "False"
+            Octopus.Action.Package.FeedId = "helm-nginx"
+            Octopus.Action.Package.PackageId = "nginx-ingress"
+            Octopus.Action.Script.ScriptSource = "Package"
+        }
+        worker_pool_variable = ""
+
+        packages {
+            acquisition_location = "Server"
+            feed = "helm-nginx"
+            package_id = "nginx-ingress"
+            properties = {
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
+
+step "deploy-kubernetes-yaml" {
+    condition = "Always"
+    name = "Deploy Kubernetes YAML"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployRawYaml"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYaml = <<-EOT
+                apiVersion: batch/v1
+                kind: Job
+                metadata:
+                  name: pi
+                spec:
+                  template:
+                    spec:
+                      containers:
+                      - name: pi
+                        image: perl:5.34.0
+                        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+                      restartPolicy: Never
+                  backoffLimit: 4
+                EOT
+            Octopus.Action.KubernetesContainers.Namespace = "travisl-script-image-test"
+            Octopus.Action.Script.ScriptSource = "Inline"
+        }
+        worker_pool_variable = ""
+    }
+}
+
+step "run-a-kubectl-script" {
+    condition = "Always"
+    name = "Run a kubectl script"
+    properties = {
+        Octopus.Action.TargetRoles = "travisl-aks-cluster"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesRunScript"
+        properties = {
+            Octopus.Action.KubernetesContainers.Namespace = "travisl-script-image-test"
+            Octopus.Action.Script.ScriptBody = "kubectl get pods -A"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
