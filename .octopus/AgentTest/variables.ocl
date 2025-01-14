@@ -1,7 +1,0 @@
-variable "K8s.DeploymentName" {
-    value "dev-kustomize-nginx" {}
-}
-
-variable "K8s.Namespace" {
-    value "travisl-script-image-test" {}
-}
