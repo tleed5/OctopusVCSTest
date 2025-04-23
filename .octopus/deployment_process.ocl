@@ -4,17 +4,10 @@ step "run-a-script" {
     action {
         action_type = "Octopus.Script"
         properties = {
-            Octopus.Action.GitRepository.Source = "External"
             Octopus.Action.RunOnServer = "true"
-            Octopus.Action.Script.ScriptFileName = "Test.sh"
-            Octopus.Action.Script.ScriptSource = "GitRepository"
-        }
-
-        git_dependencies {
-            default_branch = "main"
-            git_credential_id = "GitCredentials-1"
-            git_credential_type = "Library"
-            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
+            Octopus.Action.Script.ScriptBody = "echo \"test\""
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
         }
     }
 }
