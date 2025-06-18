@@ -1,0 +1,22 @@
+step "update-argo-cd-app-images" {
+    name = "Update Argo CD App Images"
+
+    action {
+        action_type = "Octopus.ArgoCD.ImageUpdate"
+        properties = {
+            Octopus.Action.ArgoCD.CommitMessage = "AAAAA"
+        }
+
+        packages "nginx" {
+            acquisition_location = "NotAcquired"
+            feed = "docker"
+            package_id = "nginx"
+            properties = {
+                Extract = "False"
+                Purpose = "DockerImageReference"
+                SelectionMode = "immediate"
+            }
+            version = "stable"
+        }
+    }
+}
