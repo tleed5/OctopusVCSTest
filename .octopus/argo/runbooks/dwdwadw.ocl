@@ -10,4 +10,23 @@ run_retention_policy {
     quantity_to_keep = 100
 }
 
-process {}
+process {
+    step "update-argo-cd-app-images" {
+        name = "Update Argo CD App Images"
+
+        action {
+            action_type = "Octopus.ArgoCD.ImageUpdate"
+
+            packages "nginx" {
+                acquisition_location = "NotAcquired"
+                feed = "docker"
+                package_id = "nginx"
+                properties = {
+                    Extract = "False"
+                    Purpose = "DockerImageReference"
+                    SelectionMode = "immediate"
+                }
+            }
+        }
+    }
+}
