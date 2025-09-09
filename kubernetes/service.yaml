@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-nginx-deployment
 spec:
-  replicas: 4
+  replicas: 0
   selector:
     matchLabels:
       app: my-nginx
@@ -30,7 +30,7 @@ kind: Deployment
 metadata:
   name: my-busybox-deployment
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: my-busybox
