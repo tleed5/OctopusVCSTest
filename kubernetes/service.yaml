@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: dotfile-secret
 data:
-  supersecretvalue: foobar
+  supersecretvalue: dmFsdWUtMg0KDQo=
 ---
 apiVersion: apps/v1
 kind: Deployment
