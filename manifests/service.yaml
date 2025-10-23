@@ -11,3 +11,10 @@ metadata:
   name: super-secret-3
 data:
   supersecretvalue: dmFsdWUtMg0KDQo=
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: super-secret-4
+data:
+  supersecretvalue: dmFsdWUtMg0KDQo=
