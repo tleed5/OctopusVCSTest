@@ -1,0 +1,8 @@
+config:
+  namePrefix: "example"
+  destination: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://github.com/tleed5/OctopusVCSTest.git"
+    targetRevision: "YOUR_BRANCH_NAME_HERE"
+  project: "argo"
+  environment: "development"

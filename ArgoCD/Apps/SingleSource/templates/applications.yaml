@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ printf "%s.%s" $.Values.config.namePrefix .name | quote }}
+  namespace: argocd
+  annotations:
+    argo.octopus.com/project: {{$.Values.config.project}}
+    argo.octopus.com/environment: {{$.Values.config.environment}}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ .namespace | default (printf "%s-%s" $config.namePrefix .name) | quote }}
+    server: {{ $config.destination | quote }}
+  project: default
+  source:
+    path: {{ $ | quote }}
+    repoURL: {{ $.Values.config.source.repoURL | quote }}
+    targetRevision: {{ $.Values.config.source.targetRevision | quote }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
