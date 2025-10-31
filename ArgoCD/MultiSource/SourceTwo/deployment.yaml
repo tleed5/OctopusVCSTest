@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-source-two-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-source-two-nginx
+  template:
+    metadata:
+      labels:
+        app: multi-source-two-nginx
+    spec:
+      containers:
+      - name: hello
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
+        restartPolicy: OnFailure
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
