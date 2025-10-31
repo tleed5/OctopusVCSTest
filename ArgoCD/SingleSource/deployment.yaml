@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx-container
-        image: nginx:1.7.11
+        image: nginx:1.29
         resources:
           requests:
             cpu: "100m"
@@ -46,6 +46,13 @@ spec:
         - ls
         - "-l"
         - "/etc/secret-volume"
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "64Mi"
+        limits:
+          cpu: "100m"
+          memory: "128Mi"
       volumeMounts:
         - name: secret-volume
           readOnly: true
