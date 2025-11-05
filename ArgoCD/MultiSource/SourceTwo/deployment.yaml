@@ -14,9 +14,8 @@ spec:
     spec:
       containers:
       - name: hello
-        image: busybox:1.28
+        image: busybox:1.37
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-        restartPolicy: OnFailure
         resources:
           requests:
             cpu: "100m"
