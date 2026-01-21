@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ printf "%s.%s" $.Values.config.namePrefix "single.source" | quote }}
+  namespace: argocd
+  annotations:
+    argo.octopus.com/project: {{$.Values.config.project}}
+    argo.octopus.com/environment: {{$.Values.config.environment}}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ (printf "%s-%s" $.Values.config.namePrefix $.Release.Name) | quote }}
+    server: {{ $.Values.config.destination | quote }}
+  project: default
+sources:
+    - repoURL: {{ $.Values.config.source.repoURL | quote }}
+      targetRevision: {{ $.Values.config.source.targetRevision | quote }}
+      path: ArgoCD/HelmSource/Chart
+      helm:
+        valueFiles:
+          - $values/ArgoCD/HelmSource/Values/values.yaml
+      name: helm-source
+    - repoURL: {{ $.Values.config.source.repoURL | quote }}
+      targetRevision: {{ $.Values.config.source.targetRevision | quote }}
+      ref: values
+      name: values-source
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

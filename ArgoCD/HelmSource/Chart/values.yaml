@@ -1,0 +1,4 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: docker.io/nginx
+  tag: ""

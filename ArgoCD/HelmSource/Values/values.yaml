@@ -1,0 +1,5 @@
+# Values for HelmSource Chart.
+image:
+  pullPolicy: IfNotPresent
+  repository: docker.io/nginx
+  tag: "1.29.4"
