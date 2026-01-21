@@ -1,11 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ printf "%s.%s" $.Values.config.namePrefix "single.source" | quote }}
+  name: {{ printf "%s.%s" $.Values.config.namePrefix "helm.source" | quote }}
   namespace: argocd
-  annotations:
-    argo.octopus.com/project: {{$.Values.config.project}}
-    argo.octopus.com/environment: {{$.Values.config.environment}}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -13,7 +10,7 @@ spec:
     namespace: {{ (printf "%s-%s" $.Values.config.namePrefix $.Release.Name) | quote }}
     server: {{ $.Values.config.destination | quote }}
   project: default
-sources:
+  sources:
     - repoURL: {{ $.Values.config.source.repoURL | quote }}
       targetRevision: {{ $.Values.config.source.targetRevision | quote }}
       path: ArgoCD/HelmSource/Chart
