@@ -1,4 +1,4 @@
 image:
   pullPolicy: IfNotPresent
   repository: docker.io/nginx
-  tag: ""
+  tag: "1.29.4"
