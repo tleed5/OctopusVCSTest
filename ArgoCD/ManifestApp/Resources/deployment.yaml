@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "nginx-development-deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nginx-development"
+  template:
+    metadata:
+      labels:
+        app: "nginx-development"
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.29.4
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
