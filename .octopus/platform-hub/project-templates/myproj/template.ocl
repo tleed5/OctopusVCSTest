@@ -1,0 +1,7 @@
+name = "MyProj"
+description = ""
+
+icon {
+    color = "#757575"
+    id = "layer-group"
+}
