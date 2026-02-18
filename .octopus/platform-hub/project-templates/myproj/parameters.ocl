@@ -1,0 +1,7 @@
+parameter "Container" {
+    display_settings = {
+        Octopus.ControlType = "Package"
+    }
+    help_text = ""
+    label = ""
+}
