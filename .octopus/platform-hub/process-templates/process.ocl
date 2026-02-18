@@ -36,7 +36,7 @@ step "update-argo-cd-application-image-tags" {
             package_id = ""
             properties = {
                 Extract = "false"
-                HelmReplacementPath = "image.foo"
+                HelmReplacementPath = "#{ReplacePath}"
                 PackageParameterName = "Container"
                 Purpose = "DockerImageReference"
                 SelectionMode = "deferred"
