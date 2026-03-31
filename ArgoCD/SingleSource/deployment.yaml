@@ -23,41 +23,6 @@ spec:
             cpu: "250m"
             memory: "256Mi"
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dotfile-secret
-data:
-  .secret-file: dmFsdWUtMg0KDQo=
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-dotfiles-pod
-spec:
-  volumes:
-    - name: secret-volume
-      secret:
-        secretName: dotfile-secret
-  containers:
-    - name: dotfile-test-container
-      image: busybox:1.37
-      command:
-        - ls
-        - "-l"
-        - "/etc/secret-volume"
-      resources:
-        requests:
-          cpu: "50m"
-          memory: "64Mi"
-        limits:
-          cpu: "100m"
-          memory: "128Mi"
-      volumeMounts:
-        - name: secret-volume
-          readOnly: true
-          mountPath: "/etc/secret-volume"
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
