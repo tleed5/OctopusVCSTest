@@ -6,6 +6,8 @@ metadata:
   annotations:
     argo.octopus.com/project: {{$.Values.config.project}}
     argo.octopus.com/environment: {{$.Values.config.environment}}
+  labels:
+    foo: bar
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
