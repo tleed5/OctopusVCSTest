@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "nginx-#{Octopus.Environment.Name | toLower}-deployment"
+  labels: 
+    foo: bar
 spec:
   replicas: 1
   selector:
