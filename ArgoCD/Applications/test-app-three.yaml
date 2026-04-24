@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "test-app-three"
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: "test-app-three"
+    server: "https://kubernetes.default.svc"
+  project: wait-for-argo-apps-step
+  source:
+    path: "ArgoCD/ApplicationManifests/test-app-three"
+    repoURL: "https://github.com/tleed5/OctopusVCSTest.git"
+    targetRevision: "release/test-20260424-064428"
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
