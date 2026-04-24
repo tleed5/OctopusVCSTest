@@ -6,7 +6,8 @@ export GH_TOKEN=$(get_octopusvariable "GithubAuth")
 REPO="tleed5/OctopusVCSTest"
 REPO_URL="https://github.com/tleed5/OctopusVCSTest.git"
 TARGET_REVISION=$(get_octopusvariable "Octopus.Action[Create Target Revision Branch].Output.BranchName")
-
+PROJECT_SLUG=$(get_octopusvariable "Octopus.Project.Slug")
+ENVIRONMENT_SLUG=$(get_octopusvariable "Octopus.Environment.Slug")
 APP_NAMES=("test-app-one" "test-app-two" "test-app-three")
 
 echo "Target revision branch: $TARGET_REVISION"
@@ -67,6 +68,9 @@ kind: Application
 metadata:
   name: "${APP_NAME}"
   namespace: argocd
+  annotations:
+    argo.octopus.com/project: "${PROJECT_SLUG}"
+    argo.octopus.com/environment: "${ENVIRONMENT_SLUG}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
