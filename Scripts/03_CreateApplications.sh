@@ -7,7 +7,7 @@ export GH_TOKEN=$(get_octopusvariable "GithubAuth")
 
 REPO="tleed5/OctopusVCSTest"
 REPO_URL="https://github.com/tleed5/OctopusVCSTest.git"
-TARGET_REVISION=$(get_octopusvariable "Octopus.Action[Create Target Revision Branch].Output.BranchName")
+TARGET_REVISION=$(get_octopusvariable "BranchName")
 
 APP_NAMES=("test-app-one" "test-app-two" "test-app-three")
 
@@ -86,6 +86,8 @@ EOF
   echo "Created: ArgoCD/Applications/${APP_NAME}.yaml"
 done
 
+git config user.email "leedentravis@gmail.com"
+git config user.name "Travis Leeden"
 git add ArgoCD/Applications/ ArgoCD/ApplicationManifests/
 git commit -m "Add Argo CD test applications for branch $TARGET_REVISION"
 COMMIT_SHA=$(git rev-parse HEAD)
