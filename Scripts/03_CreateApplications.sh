@@ -17,6 +17,7 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 
 gh repo clone "$REPO" "$WORK_DIR"
 cd "$WORK_DIR"
+git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
 
 git checkout "$TARGET_REVISION"
 
