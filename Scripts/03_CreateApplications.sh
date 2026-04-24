@@ -1,13 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-# Octopus project variable 'BranchName' should be bound to:
-# #{Octopus.Action[Create Branch].Output.BranchName}
 export GH_TOKEN=$(get_octopusvariable "GithubAuth")
 
 REPO="tleed5/OctopusVCSTest"
 REPO_URL="https://github.com/tleed5/OctopusVCSTest.git"
-TARGET_REVISION=$(get_octopusvariable "BranchName")
+TARGET_REVISION=$(get_octopusvariable "Octopus.Action[Create Target Revision Branch].Output.BranchName")
 
 APP_NAMES=("test-app-one" "test-app-two" "test-app-three")
 
