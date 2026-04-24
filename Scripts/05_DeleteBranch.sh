@@ -6,7 +6,7 @@ set -euo pipefail
 export GH_TOKEN=$(get_octopusvariable "GithubAuth")
 
 REPO="tleed5/OctopusVCSTest"
-BRANCH_NAME=$(get_octopusvariable "BranchName")
+BRANCH_NAME=$(get_octopusvariable "Octopus.Action[Create Target Revision Branch].Output.BranchName")
 
 echo "Deleting branch '$BRANCH_NAME' from $REPO..."
 
