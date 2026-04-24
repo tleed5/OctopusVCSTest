@@ -83,6 +83,7 @@ spec:
     repoURL: "${REPO_URL}"
     targetRevision: "${TARGET_REVISION}"
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
 EOF
