@@ -137,6 +137,9 @@ kind: Application
 metadata:
   name: "${APP_NAME}"
   namespace: argocd
+  labels: 
+    created-by: script
+    managed-by: octopus
   annotations:
     argo.octopus.com/project: "${PROJECT_SLUG}"
     argo.octopus.com/environment: "${ENVIRONMENT_SLUG}"
