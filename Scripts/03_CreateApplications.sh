@@ -109,8 +109,10 @@ metadata:
   name: "${APP_NAME}"
   namespace: argocd
   annotations:
-    argo.octopus.com/project: "${PROJECT_SLUG}"
-    argo.octopus.com/environment: "${ENVIRONMENT_SLUG}"
+    argo.octopus.com/project.octopusvcs: "${PROJECT_SLUG}"
+    argo.octopus.com/environment.octopusvcs: "${ENVIRONMENT_SLUG}"
+    argo.octopus.com/project.argosource: "${PROJECT_SLUG}"
+    argo.octopus.com/environment.argosource: "${ENVIRONMENT_SLUG}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -120,9 +122,11 @@ spec:
   project: wait-for-argo-apps-step
   sources:
     - path: "${MANIFEST_DIR}"
+      name: "octopusvcs"
       repoURL: "${REPO_URL}"
       targetRevision: "${TARGET_REVISION}"
     - path: "ApplicationManifests/${APP_NAME}"
+      name: "argosource"
       repoURL: "${REPO2_URL}"
       targetRevision: "${TARGET_REVISION}"
   syncPolicy:

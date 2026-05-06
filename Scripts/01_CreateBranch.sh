@@ -22,9 +22,7 @@ echo "Branch '$BRANCH_NAME' created successfully in $REPO."
 
 echo "Creating branch '$BRANCH_NAME' in $REPO2..."
 
-BASE_BRANCH2=$(gh api "repos/$REPO2" --jq '.default_branch')
-echo "Default branch: $BASE_BRANCH2"
-BASE_SHA2=$(gh api "repos/$REPO2/git/ref/heads/$BASE_BRANCH2" --jq '.object.sha')
+BASE_SHA2=$(gh api "repos/$REPO2/git/ref/heads/$BASE_BRANCH" --jq '.object.sha')
 echo "Base SHA: $BASE_SHA2"
 
 gh api "repos/$REPO2/git/refs" \
