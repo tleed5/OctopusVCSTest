@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "test-app-one"
+  namespace: argocd
+  annotations:
+    argo.octopus.com/project.octopusvcs: "argo-wait-for-apps"
+    argo.octopus.com/environment.octopusvcs: "development"
+    argo.octopus.com/project.argosource: "argo-wait-for-apps"
+    argo.octopus.com/environment.argosource: "development"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: "test-app-one"
+    server: "https://kubernetes.default.svc"
+  project: wait-for-argo-apps-step
+  sources:
+    - path: "ArgoCD/ApplicationManifests/test-app-one"
+      name: "octopusvcs"
+      repoURL: "https://github.com/tleed5/OctopusVCSTest.git"
+      targetRevision: "release/test-20260506-110113"
+    - path: "ApplicationManifests/test-app-one"
+      name: "argosource"
+      repoURL: "https://github.com/tleed5/ArgoCDTestSource.git"
+      targetRevision: "release/test-20260506-110113"
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
