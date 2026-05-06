@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "test-app-two-deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "test-app-two"
+  template:
+    metadata:
+      labels:
+        app: "test-app-two"
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.30
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
