@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "test-app-three-deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "test-app-three"
+  template:
+    metadata:
+      labels:
+        app: "test-app-three"
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.30
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
