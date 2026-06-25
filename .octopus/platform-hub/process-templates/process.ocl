@@ -17,6 +17,24 @@ parameter "ReplacePath" {
     label = ""
 }
 
+parameter "Targets" {
+    display_settings = {
+        Octopus.ControlType = "TargetTags"
+    }
+    help_text = ""
+    label = ""
+}
+
+parameter "EchoMEssage" {
+    display_settings = {
+        Octopus.ControlType = "MultiLineText"
+    }
+    help_text = ""
+    label = ""
+
+    value "Hello World!" {}
+}
+
 step "update-argo-cd-application-image-tags" {
     name = "Update Argo CD Application Image Tags"
 
@@ -42,5 +60,24 @@ step "update-argo-cd-application-image-tags" {
                 SelectionMode = "deferred"
             }
         }
+    }
+}
+
+step "run-a-script" {
+    name = "Run a Script"
+    properties = {
+        Octopus.Action.TargetRoles = "#{Targets}"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "echo $(get_octopusvariable \"EchoMEssage\")"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool_variable = ""
     }
 }
