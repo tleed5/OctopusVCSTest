@@ -25,3 +25,26 @@ process_template "run-a-process-template" {
         package_id = "nginx"
     }
 }
+
+step "slack-send-simple-notification" {
+    name = "Slack - Send Simple Notification"
+    properties = {
+        Octopus.Action.TargetRoles = "agent"
+    }
+
+    action {
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Template.Id = "ActionTemplates-26"
+            Octopus.Action.Template.Version = "15"
+            ssn_Channel = "fadsfsdafadsf"
+            ssn_Color = "good"
+            ssn_HookUrl = "#{Octopus.Account.AccountType}"
+            ssn_IconUrl = "https://octopus.com/content/resources/favicon.png"
+            ssn_Message = "fadfdasf"
+            ssn_Title = "fasdfasdf"
+            ssn_Username = "Octopus Deploy"
+        }
+        worker_pool_variable = ""
+    }
+}
