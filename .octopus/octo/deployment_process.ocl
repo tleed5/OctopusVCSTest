@@ -18,19 +18,11 @@ step "echo" {
 process_template "run-a-process-template" {
     name = "Run a Process Template"
     process_template_slug = "process"
-    version_mask = "2.X"
+    version_mask = "1.X"
 
     package_parameter "Container" {
         feed = "docker"
         package_id = "nginx"
-    }
-
-    parameter "ReplacePath" {
-        value = "erdfasdfadsf"
-    }
-
-    parameter "Targets" {
-        value = "agent"
     }
 }
 
