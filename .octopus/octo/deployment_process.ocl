@@ -1,1 +1,16 @@
+step "echo" {
+    name = "Echo"
+    properties = {
+        Octopus.Action.TargetRoles = "agent"
+    }
 
+    action {
+        properties = {
+            Message = "Woooo"
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Template.Id = "ActionTemplates-25"
+            Octopus.Action.Template.Version = "0"
+        }
+        worker_pool_variable = ""
+    }
+}
