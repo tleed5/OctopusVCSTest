@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "nginx-wait-for-apps"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nginx-wait-for-apps"
+  template:
+    metadata:
+      labels:
+        app: "nginx-wait-for-apps"
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.29.2
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
