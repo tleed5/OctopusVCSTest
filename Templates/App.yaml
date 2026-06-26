@@ -10,10 +10,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/tleed5/OctopusVCSTest.git
-    targetRevision: main
-    path: ArgoCD/WaitForAppsResources
+  sources: 
+    - name: octopusvcs-main
+      repoURL: https://github.com/tleed5/OctopusVCSTest.git
+      targetRevision: main
+      path: ArgoCD/WaitForAppsResources
+    - name: octopusvcs-test
+      repoURL: https://github.com/tleed5/OctopusVCSTest.git
+      targetRevision: test-branch
+      path: ArgoCD/WaitForAppsResourcesTwo
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
