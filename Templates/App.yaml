@@ -2,6 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: "#{ApplicationName}"
+  annotations:
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
   namespace: argocd
 spec:
   project: default
