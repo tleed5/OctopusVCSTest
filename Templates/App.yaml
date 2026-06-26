@@ -9,11 +9,14 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
 spec:
-  project: default
+  project: waitforapps
   source:
     repoURL: https://github.com/tleed5/OctopusVCSTest.git
     targetRevision: main
     path: ArgoCD/WaitForAppsResources
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
     namespace: default
