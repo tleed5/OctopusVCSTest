@@ -5,13 +5,15 @@ metadata:
   annotations:
     argo.octopus.com/project: "waitforargoappstest"
     argo.octopus.com/environment: "development"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/tleed5/OctopusVCSTest.git
     targetRevision: main
-    path: ArgoCD/SingleSource
+    path: ArgoCD/WaitForAppsResources
   destination:
     server: https://kubernetes.default.svc
     namespace: default
