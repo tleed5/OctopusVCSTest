@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "commit-and-wait"
+  annotations:
+    argo.octopus.com/project.octopusvcs-main: "waitforargoappstest"
+    argo.octopus.com/environment.octopusvcs-main: "development"
+    argo.octopus.com/project.octopusvcs-test: "waitforargoappstest"
+    argo.octopus.com/environment.octopusvcs-test: "development"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  sources: 
+    - name: octopusvcs-main
+      repoURL: https://github.com/tleed5/OctopusVCSTest.git
+      targetRevision: main
+      path: ArgoCD/WaitForAppsResources
+    - name: octopusvcs-test
+      repoURL: https://github.com/tleed5/OctopusVCSTest.git
+      targetRevision: test-branch
+      path: ArgoCD/WaitForAppsResourcesTwo
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: waitforapps
