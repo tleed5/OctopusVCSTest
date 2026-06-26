@@ -3,8 +3,10 @@ kind: Application
 metadata:
   name: "#{ApplicationName}"
   annotations:
-    argo.octopus.com/project: "waitforargoappstest"
-    argo.octopus.com/environment: "development"
+    argo.octopus.com/project.octopusvcs-main: "waitforargoappstest"
+    argo.octopus.com/environment.octopusvcs-main: "development"
+    argo.octopus.com/project.octopusvcs-test: "waitforargoappstest"
+    argo.octopus.com/environment.octopusvcs-test: "development"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
