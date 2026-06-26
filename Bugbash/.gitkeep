@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argo.octopus.com/project: #{Octopus.Project.Slug}
+    argo.octopus.com/environment: #{Octopus.Environment.Slug}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: my-app-name
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: #{ResourcePath}
+    repoURL: #{GitRepo}
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
