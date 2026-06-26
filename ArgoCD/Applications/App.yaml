@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "commit-and-wait"
+  annotations:
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tleed5/OctopusVCSTest.git
+    targetRevision: main
+    path: ArgoCD/SingleSource
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
