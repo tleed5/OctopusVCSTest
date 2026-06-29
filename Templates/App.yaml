@@ -15,6 +15,9 @@ spec:
     targetRevision: main
     path: ArgoCD/WaitForAppsResources
   syncPolicy:
+    automated:
+      prune: true
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   destination:
