@@ -3,24 +3,17 @@ kind: Application
 metadata:
   name: "#{ApplicationName}"
   annotations:
-    argo.octopus.com/project.octopusvcs-main: "waitforargoappstest"
-    argo.octopus.com/environment.octopusvcs-main: "development"
-    argo.octopus.com/project.octopusvcs-test: "waitforargoappstest"
-    argo.octopus.com/environment.octopusvcs-test: "development"
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
 spec:
   project: default
-  sources: 
-    - name: octopusvcs-main
-      repoURL: https://github.com/tleed5/OctopusVCSTest.git
-      targetRevision: main
-      path: ArgoCD/WaitForAppsResources
-    - name: octopusvcs-test
-      repoURL: https://github.com/tleed5/OctopusVCSTest.git
-      targetRevision: test-branch
-      path: ArgoCD/WaitForAppsResourcesTwo
+  source:
+    repoURL: https://github.com/tleed5/OctopusVCSTest.git
+    targetRevision: main
+    path: ArgoCD/WaitForAppsResources
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
