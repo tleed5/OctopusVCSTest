@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-oci
+  namespace: argocd
+  annotations:
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
+spec:
+  project: default
+  source:
+    # OCI registries are referenced with the bare host[/path] — no oci:// prefix
+    # and no scheme. Argo CD treats the source as OCI because `chart` + a pinned
+    # `targetRevision` are set against a registry host.
+    repoURL: registry-1.docker.io/bitnamicharts
+    chart: nginx
+    # Pinning an exact version forces resolution from the OCI registry.
+    targetRevision: latest
+    helm:
+      releaseName: nginx
+      values: |
+        service:
+          type: ClusterIP
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
