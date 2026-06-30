@@ -15,7 +15,7 @@ spec:
     repoURL: registry-1.docker.io/bitnamicharts
     chart: nginx
     # Pinning an exact version forces resolution from the OCI registry.
-    targetRevision: latest
+    targetRevision: sha256-bc7b6b596a429b52cdba7c63b87458b939620b5491631f1780cebdd25e7e36a9
     helm:
       releaseName: nginx
       values: |
