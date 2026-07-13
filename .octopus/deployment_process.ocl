@@ -16,7 +16,7 @@ step "commit-to-git" {
             Octopus.Action.Git.StepVerification.Timeout = "180"
             Octopus.Action.Git.TargetRepositoryBranch = "main"
             Octopus.Action.Git.TargetRepositoryCredentialType = "Project"
-            Octopus.Action.Git.TargetRepositoryUrl = "https://github.com/tleed5/OctopusVCSTest.git"
+            Octopus.Action.Git.TargetRepositoryUrl = "#{RepoUrl}"
             Octopus.Action.Script.ScriptBody = "echo 'hello world'"
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
