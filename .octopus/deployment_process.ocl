@@ -15,6 +15,7 @@ step "commit-to-git" {
             Octopus.Action.Git.StepVerification.Method = "CommitCreated"
             Octopus.Action.Git.StepVerification.Timeout = "180"
             Octopus.Action.Git.TargetRepositoryBranch = "main"
+            Octopus.Action.Git.TargetRepositoryCredentialId = "GitCredentials-121"
             Octopus.Action.Git.TargetRepositoryCredentialType = "Project"
             Octopus.Action.Git.TargetRepositoryUrl = "#{RepoUrl}"
             Octopus.Action.Script.ScriptBody = "echo 'hello world'"
