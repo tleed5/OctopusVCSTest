@@ -1,0 +1,13 @@
+variable "GitRepo" {
+    value "https://github.com/foo/dev-repo.git" {
+        environment = ["development"]
+    }
+
+    value "https://github.com/foo/staging-repo.git" {
+        environment = ["staging"]
+    }
+
+    value "https://github.com/foo/prod-repo.git" {
+        environment = ["production"]
+    }
+}
