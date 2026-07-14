@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "commit-and-wait"
+  name: "foobar-app"
   annotations:
     argo.octopus.com/project: "waitforargoappstest"
     argo.octopus.com/environment: "development"
