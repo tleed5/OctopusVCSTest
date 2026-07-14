@@ -1,3 +1,7 @@
 variable "RepoUrl" {
     value "https://github.com/tleed5/OctopusVCSTest.git" {}
 }
+
+variable "ApplicationName" {
+    value "foobar-app" {}
+}
