@@ -1,6 +1,6 @@
 step "commit-to-git" {
     condition = "Variable"
-    name = "Commit to Git Dev"
+    name = "Commit to Git"
     properties = {
         Octopus.Step.ConditionVariableExpression = "#{if Octopus.Environment.Name == \"Development\"}true#{/if}"
     }
@@ -14,82 +14,27 @@ step "commit-to-git" {
                 Tenant: #{Octopus.Deployment.Tenant.Slug}#{/if}
                 EOT
             Octopus.Action.Git.CommitMessageSummary = "Updated files with Release: #{Octopus.Release.Number}"
-            Octopus.Action.Git.CommitMethod = "DirectCommit"
+            Octopus.Action.Git.CommitMethod = "PullRequest"
+            Octopus.Action.Git.InputFileSources = "[{\"Type\":\"GitRepository\",\"DestinationSubfolder\":\"\",\"InputFilePaths\":[\"Templates/*\"],\"GitDependencyName\":\"InputGit-1\"}]"
             Octopus.Action.Git.PushRetryAttempts = "2"
             Octopus.Action.Git.StepVerification.Method = "CommitCreated"
             Octopus.Action.Git.StepVerification.Timeout = "180"
             Octopus.Action.Git.TargetRepositoryBranch = "main"
             Octopus.Action.Git.TargetRepositoryCredentialId = "GitCredentials-121"
             Octopus.Action.Git.TargetRepositoryCredentialType = "Library"
-            Octopus.Action.Git.TargetRepositoryDestinationPath = "foo/bar"
-            Octopus.Action.Git.TargetRepositoryUrl = "https://github.com/foo/dev-repo.git"
+            Octopus.Action.Git.TargetRepositoryDestinationPath = "ArgoCD/Applications"
+            Octopus.Action.Git.TargetRepositoryUrl = "#{GitRepo}"
             Octopus.Action.Script.ScriptBody = "echo 'foo'"
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
         }
-    }
-}
 
-step "commit-to-git-staging" {
-    condition = "Variable"
-    name = "Commit to Git Staging"
-    properties = {
-        Octopus.Step.ConditionVariableExpression = "#{if Octopus.Environment.Name == \"Staging\"}true#{/if}"
-    }
-
-    action {
-        action_type = "Octopus.CommitToGit"
-        properties = {
-            Octopus.Action.Git.CommitMessageDescription = <<-EOT
-                Project: #{Octopus.Project.Slug}
-                Environment: #{Octopus.Environment.Slug}#{if Octopus.Deployment.Tenant.Slug }
-                Tenant: #{Octopus.Deployment.Tenant.Slug}#{/if}
-                EOT
-            Octopus.Action.Git.CommitMessageSummary = "Updated files with Release: #{Octopus.Release.Number}"
-            Octopus.Action.Git.CommitMethod = "DirectCommit"
-            Octopus.Action.Git.PushRetryAttempts = "2"
-            Octopus.Action.Git.StepVerification.Method = "CommitCreated"
-            Octopus.Action.Git.StepVerification.Timeout = "180"
-            Octopus.Action.Git.TargetRepositoryBranch = "main"
-            Octopus.Action.Git.TargetRepositoryCredentialId = "GitCredentials-121"
-            Octopus.Action.Git.TargetRepositoryCredentialType = "Library"
-            Octopus.Action.Git.TargetRepositoryDestinationPath = "foo/bar"
-            Octopus.Action.Git.TargetRepositoryUrl = "https://github.com/foo/staging-repo.git"
-            Octopus.Action.Script.ScriptBody = "echo 'foo'"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "Bash"
-        }
-    }
-}
-
-step "commit-to-git-prod" {
-    condition = "Variable"
-    name = "Commit to Git Prod"
-    properties = {
-        Octopus.Step.ConditionVariableExpression = "#{if Octopus.Environment.Name == \"Production\"}true#{/if}"
-    }
-
-    action {
-        action_type = "Octopus.CommitToGit"
-        properties = {
-            Octopus.Action.Git.CommitMessageDescription = <<-EOT
-                Project: #{Octopus.Project.Slug}
-                Environment: #{Octopus.Environment.Slug}#{if Octopus.Deployment.Tenant.Slug }
-                Tenant: #{Octopus.Deployment.Tenant.Slug}#{/if}
-                EOT
-            Octopus.Action.Git.CommitMessageSummary = "Updated files with Release: #{Octopus.Release.Number}"
-            Octopus.Action.Git.CommitMethod = "DirectCommit"
-            Octopus.Action.Git.PushRetryAttempts = "2"
-            Octopus.Action.Git.StepVerification.Method = "CommitCreated"
-            Octopus.Action.Git.StepVerification.Timeout = "180"
-            Octopus.Action.Git.TargetRepositoryBranch = "main"
-            Octopus.Action.Git.TargetRepositoryCredentialId = "GitCredentials-121"
-            Octopus.Action.Git.TargetRepositoryCredentialType = "Library"
-            Octopus.Action.Git.TargetRepositoryDestinationPath = "foo/bar"
-            Octopus.Action.Git.TargetRepositoryUrl = "https://github.com/foo/prod-repo.git"
-            Octopus.Action.Script.ScriptBody = "echo 'foo'"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "Bash"
+        git_dependencies "InputGit-1" {
+            default_branch = "main"
+            file_path_filters = ["Templates/*"]
+            git_credential_id = "GitCredentials-121"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
     }
 }
