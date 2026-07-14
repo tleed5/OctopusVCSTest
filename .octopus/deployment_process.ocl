@@ -11,6 +11,7 @@ step "commit-to-git" {
                 EOT
             Octopus.Action.Git.CommitMessageSummary = "Updated files with Release: #{Octopus.Release.Number}"
             Octopus.Action.Git.CommitMethod = "DirectCommit"
+            Octopus.Action.Git.InputFileSources = "[{\"Type\":\"GitRepository\",\"DestinationSubfolder\":\"\",\"InputFilePaths\":[\"Templates/*\"],\"GitDependencyName\":\"InputGit-1\"}]"
             Octopus.Action.Git.PushRetryAttempts = "2"
             Octopus.Action.Git.StepVerification.Method = "CommitCreated"
             Octopus.Action.Git.StepVerification.Timeout = "180"
@@ -21,6 +22,14 @@ step "commit-to-git" {
             Octopus.Action.Script.ScriptBody = "echo 'hello world'"
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
+        }
+
+        git_dependencies "InputGit-1" {
+            default_branch = "main"
+            file_path_filters = ["Templates/*"]
+            git_credential_id = "GitCredentials-121"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/tleed5/OctopusVCSTest.git"
         }
     }
 }
