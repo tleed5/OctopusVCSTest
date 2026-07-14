@@ -3,3 +3,7 @@ variable "GitRepo" {
         description = ""
     }
 }
+
+variable "ApplicationName" {
+    value "foobar-app" {}
+}
