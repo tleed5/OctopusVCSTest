@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-https
+  namespace: argocd
+  annotations:
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
+spec:
+  project: default
+  source:
+    # Classic (HTTP/HTTPS) Helm repository. Argo CD treats the source as a Helm
+    # chart repo because `chart` is set alongside an `https://` `repoURL` that
+    # serves an index.yaml (as opposed to a bare OCI registry host).
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: nginx
+    # The chart version published in the repo's index.yaml.
+    targetRevision: 18.3.6
+    helm:
+      releaseName: nginx
+      values: |
+        service:
+          type: ClusterIP
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
