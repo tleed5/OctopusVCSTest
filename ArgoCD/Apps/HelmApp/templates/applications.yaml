@@ -3,6 +3,9 @@ kind: Application
 metadata:
   name: {{ printf "%s.%s" $.Values.config.namePrefix "helm.source" | quote }}
   namespace: argocd
+  annotations:
+    argo.octopus.com/project: "helmmanifestupdate"
+    argo.octopus.com/environment: "development"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,18 +18,18 @@ spec:
       targetRevision: {{ $.Values.config.source.targetRevision | quote }}
       path: ArgoCD/HelmSource/Chart
       helm:
-        valuesObject:
-          image:
-            pullPolicy: IfNotPresent
-            repository: docker.io/nginx
-            tag: "1.29.4"
-        # valueFiles:
-        #   - $values/ArgoCD/HelmSource/Values/values.yaml
-    #   name: helm-source
-    # - repoURL: {{ $.Values.config.source.repoURL | quote }}
-    #   targetRevision: {{ $.Values.config.source.targetRevision | quote }}
-    #   ref: values
-    #   name: values-source
+        # valuesObject:
+        #   image:
+        #     pullPolicy: IfNotPresent
+        #     repository: docker.io/nginx
+        #     tag: "1.29.4"
+        valueFiles:
+          - $values/ArgoCD/HelmSource/Values/values.yaml
+      name: helm-source
+    - repoURL: {{ $.Values.config.source.repoURL | quote }}
+      targetRevision: {{ $.Values.config.source.targetRevision | quote }}
+      ref: values
+      name: values-source
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
