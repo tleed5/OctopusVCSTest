@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "nginx-#{Octopus.Environment.Name | toLower}-deployment"
+  name: "nginx-#{Octopus.Deployment.Tenant.Slug}-#{Octopus.Environment.Name | toLower}-deployment"
   labels: 
     foo: bar
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "nginx-#{Octopus.Environment.Name | toLower}"
+      app: "nginx-#{Octopus.Deployment.Tenant.Slug}-#{Octopus.Environment.Name | toLower}"
   template:
     metadata:
       labels:
-        app: "nginx-#{Octopus.Environment.Name | toLower}"
+        app: "nginx-#{Octopus.Deployment.Tenant.Slug}-#{Octopus.Environment.Name | toLower}"
     spec:
       containers:
       - name: nginx-container
