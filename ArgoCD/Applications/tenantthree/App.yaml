@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "commit-and-wait-tenantthree"
+  annotations:
+    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/environment: "development"
+    argo.octopus.com/tenant: "tenantthree"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tleed5/OctopusVCSTest.git
+    targetRevision: main
+    path: ArgoCD/WaitForAppsResources
+  syncPolicy:
+    automated:
+      prune: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: waitforapps
