@@ -1,11 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: "#{ApplicationName}-#{Octopus.Deployment.Tenant.Slug}"
+  name: "#{ApplicationName}"
   annotations:
-    argo.octopus.com/project: "waitforargoappstest"
+    argo.octopus.com/project: "argo"
     argo.octopus.com/environment: "development"
-    argo.octopus.com/tenant: "#{Octopus.Deployment.Tenant.Slug}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
