@@ -1,0 +1,13 @@
+# Copy to terraform.tfvars and fill in real values.
+# terraform.tfvars is gitignored so credentials never get committed.
+
+octopus_address = "http://localhost:8080"
+octopus_api_key = "API-XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# Docker Hub feed credentials (leave blank for an anonymous feed)
+dockerhub_username = "your-dockerhub-user"
+dockerhub_password = "dckr_pat_or_password"
+
+# Git credential
+git_username = "your-git-user"
+git_password = "ghp_or_git_password"
