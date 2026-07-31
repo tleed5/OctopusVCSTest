@@ -37,4 +37,4 @@ spec:
       - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
-    namespace: waitforapps
+    namespace: waitforappsmulti
