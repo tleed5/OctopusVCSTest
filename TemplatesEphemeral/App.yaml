@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "#{ApplicationName}"
+  annotations:
+    argo.octopus.com/project: "#{Octopus.Project.Slug}"
+    argo.octopus.com/environment: "#{Octopus.Environment.Slug}"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tleed5/OctopusVCSTest.git
+    targetRevision: main
+    path: ArgoCD/WaitForAppsResources
+  syncPolicy:
+    automated:
+      prune: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: "#{DestinationNamespace}"
