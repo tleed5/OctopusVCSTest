@@ -8,7 +8,7 @@ step "commit-to-git" {
                 Project: #{Octopus.Project.Slug}
                 Environment: #{Octopus.Environment.Slug}#{if Octopus.Deployment.Tenant.Slug }
                 Tenant: #{Octopus.Deployment.Tenant.Slug}#{/if}
-                EOT
+                    EOT
             Octopus.Action.Git.CommitMessageSummary = "Updated files with Release: #{Octopus.Release.Number}"
             Octopus.Action.Git.CommitMethod = "PullRequest"
             Octopus.Action.Git.InputFileSources = "[{\"Type\":\"GitRepository\",\"DestinationSubfolder\":\"\",\"InputFilePaths\":[\"Templates/*\"],\"GitDependencyName\":\"InputGit-1\"}]"
