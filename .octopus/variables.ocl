@@ -5,3 +5,7 @@ variable "RepoUrl" {
 variable "ApplicationName" {
     value "foobar-app" {}
 }
+
+variable "ContainerName" {
+    value "nginx" {}
+}
