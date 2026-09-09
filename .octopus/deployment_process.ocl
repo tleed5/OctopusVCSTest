@@ -8,7 +8,7 @@ step "deploy-aws-ecs-service" {
         action_type = "Octopus.AwsDeployEcsService"
         properties = {
             Octopus.Action.Aws.Ecs.Deploy.AutoAssignPublicIp = "True"
-            Octopus.Action.Aws.Ecs.Deploy.Containers = "[{\"containerName\":\"#{ContainerName}\",\"containerImageReference\":{\"referenceId\":\"4e1ce51d-b043-45bf-93fb-dc33cc56bf83\",\"imageName\":\"nginx\",\"feedId\":\"Feeds-1001\"},\"repositoryAuthentication\":{\"type\":\"Default\"},\"containerPortMappings\":[],\"essential\":\"True\",\"environmentFiles\":[],\"environmentVariables\":[],\"networkSettings\":{\"disableNetworking\":\"False\",\"dnsServers\":[],\"dnsSearchDomains\":[],\"extraHosts\":[]},\"containerStorage\":{\"readOnlyRootFileSystem\":\"False\",\"mountPoints\":[],\"volumeFrom\":[]},\"containerLogging\":{\"type\":\"Manual\",\"logDriver\":\"None\",\"logOptions\":[]},\"firelensConfiguration\":{\"type\":\"Disabled\",\"enableEcsLogMetadata\":\"False\"},\"dockerLabels\":[],\"healthCheck\":{\"command\":[]},\"dependencies\":[],\"ulimits\":[]}]"
+            Octopus.Action.Aws.Ecs.Deploy.Containers = "[{\"containerName\":\"#{ContainerName}\",\"containerImageReference\":{\"referenceId\":\"4e1ce51d-b043-45bf-93fb-dc33cc56bf83\",\"imageName\":\"nginx\",\"feedId\":\"Feeds-1001\"},\"repositoryAuthentication\":{\"type\":\"Default\"},\"containerPortMappings\":[],\"essential\":\"True\",\"environmentFiles\":[],\"environmentVariables\":[],\"networkSettings\":{\"disableNetworking\":\"False\",\"dnsServers\":[],\"dnsSearchDomains\":[],\"extraHosts\":[]},\"containerStorage\":{\"readOnlyRootFileSystem\":\"False\",\"mountPoints\":[],\"volumeFrom\":[]},\"containerLogging\":{\"type\":\"Manual\",\"logDriver\":\"None\",\"logOptions\":[]},\"firelensConfiguration\":{\"type\":\"Disabled\",\"enableEcsLogMetadata\":\"False\"},\"dockerLabels\":[],\"healthCheck\":{\"command\":[]},\"dependencies\":[],\"ulimits\":[]},{\"containerName\":\"#{ApplicationName}\",\"containerImageReference\":{\"referenceId\":\"72428a80-0da1-46db-88ac-a1cc07c76d4e\",\"imageName\":\"nginx/nginx-ingress\",\"feedId\":\"Feeds-1001\"},\"repositoryAuthentication\":{\"type\":\"Default\"},\"containerPortMappings\":[],\"essential\":\"True\",\"environmentFiles\":[],\"environmentVariables\":[],\"networkSettings\":{\"disableNetworking\":\"False\",\"dnsServers\":[],\"dnsSearchDomains\":[],\"extraHosts\":[]},\"containerStorage\":{\"readOnlyRootFileSystem\":\"False\",\"mountPoints\":[],\"volumeFrom\":[]},\"containerLogging\":{\"type\":\"Auto\",\"logOptions\":[]},\"firelensConfiguration\":{\"type\":\"Disabled\",\"enableEcsLogMetadata\":\"False\"},\"dockerLabels\":[],\"healthCheck\":{\"command\":[]},\"dependencies\":[],\"ulimits\":[]}]"
             Octopus.Action.Aws.Ecs.Deploy.Cpu = "256"
             Octopus.Action.Aws.Ecs.Deploy.DesiredCount = "1"
             Octopus.Action.Aws.Ecs.Deploy.EnableEcsManagedTags = "False"
@@ -31,6 +31,15 @@ step "deploy-aws-ecs-service" {
             acquisition_location = "NotAcquired"
             feed = "docker-hub"
             package_id = "nginx"
+            properties = {
+                Extract = "False"
+            }
+        }
+
+        packages "72428a80-0da1-46db-88ac-a1cc07c76d4e" {
+            acquisition_location = "NotAcquired"
+            feed = "docker-hub"
+            package_id = "nginx/nginx-ingress"
             properties = {
                 Extract = "False"
             }
