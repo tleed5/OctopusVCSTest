@@ -1,0 +1,23 @@
+parameter "DevEnvironment" {
+    display_settings = {
+        Octopus.ControlType = "Environments"
+    }
+    help_text = ""
+    label = "Development Environment"
+}
+
+parameter "StagingEnvironment" {
+    display_settings = {
+        Octopus.ControlType = "Environments"
+    }
+    help_text = ""
+    label = "Staging Environment"
+}
+
+parameter "ProdEnvironment" {
+    display_settings = {
+        Octopus.ControlType = "Environments"
+    }
+    help_text = ""
+    label = "Production Environment"
+}
