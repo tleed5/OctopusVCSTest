@@ -21,3 +21,11 @@ parameter "ProdEnvironment" {
     help_text = ""
     label = "Production Environment"
 }
+
+parameter "worker-pool" {
+    display_settings = {
+        Octopus.ControlType = "WorkerPool"
+    }
+    help_text = ""
+    label = ""
+}
