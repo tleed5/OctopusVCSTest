@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "pull-request-waiter-multi-source"
+  annotations:
+    # Multi-source apps use per-source annotations, suffixed with the source name
+    argo.octopus.com/project.git-source: "committogit"
+    argo.octopus.com/environment.git-source: "dev"
+    argo.octopus.com/project.helm-source: "committogit"
+    argo.octopus.com/environment.helm-source: "dev"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Git source: plain manifests from a path in the repo
+    - name: git-source
+      repoURL: https://github.com/tleed5/OctopusVCSTest.git
+      targetRevision: main
+      path: ArgoCD/WaitForAppsResources
+    # Helm source: chart pulled from an OCI registry (bare host, no oci:// prefix)
+    - name: helm-source
+      repoURL: registry-1.docker.io/bitnamicharts
+      chart: nginx
+      targetRevision: ">=0.0.0"
+      helm:
+        releaseName: nginx
+        values: |
+          service:
+            type: ClusterIP
+  syncPolicy:
+    automated:
+      prune: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: waitforappsmulti
