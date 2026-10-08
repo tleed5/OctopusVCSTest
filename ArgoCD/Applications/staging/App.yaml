@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: "pull-request-waiter-staging"
+  annotations:
+    argo.octopus.com/project: "committogitworkaround"
+    argo.octopus.com/environment: "staging"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tleed5/OctopusVCSTest.git
+    targetRevision: main
+    path: ArgoCD/WaitForAppsResources
+  syncPolicy:
+    automated:
+      prune: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: "waitforappsstaging"
