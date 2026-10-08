@@ -3,8 +3,8 @@ kind: Application
 metadata:
   name: "#{ApplicationName}"
   annotations:
-    argo.octopus.com/project: "committogit"
-    argo.octopus.com/environment: "dev"
+    argo.octopus.com/project: "#{Octopus.Project.Slug}"
+    argo.octopus.com/environment: "#{Octopus.Environment.Slug}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
@@ -22,4 +22,4 @@ spec:
       - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
-    namespace: waitforapps
+    namespace: "waitforapps#{Octopus.Environment.Slug}"

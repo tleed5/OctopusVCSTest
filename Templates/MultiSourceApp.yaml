@@ -4,10 +4,10 @@ metadata:
   name: "#{ApplicationName}-multi-source"
   annotations:
     # Multi-source apps use per-source annotations, suffixed with the source name
-    argo.octopus.com/project.git-source: "committogit"
-    argo.octopus.com/environment.git-source: "dev"
-    argo.octopus.com/project.helm-source: "committogit"
-    argo.octopus.com/environment.helm-source: "dev"
+    argo.octopus.com/project.git-source: "#{Octopus.Project.Slug}"
+    argo.octopus.com/environment.git-source: "#{Octopus.Environment.Slug}"
+    argo.octopus.com/project.helm-source: "#{Octopus.Project.Slug}"
+    argo.octopus.com/environment.helm-source: "#{Octopus.Environment.Slug}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   namespace: argocd
@@ -37,4 +37,4 @@ spec:
       - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
-    namespace: waitforappsmulti
+    namespace: "waitforappsmulti#{Octopus.Environment.Slug}"
