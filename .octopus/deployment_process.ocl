@@ -1,48 +1,13 @@
-step "deploy-aws-ecs-service" {
-    name = "Deploy AWS ECS Service"
-    properties = {
-        Octopus.Action.TargetRoles = "agent"
-    }
+step "run-a-script" {
+    name = "Run a Script"
 
     action {
-        action_type = "Octopus.AwsDeployEcsService"
+        action_type = "Octopus.Script"
         properties = {
-            Octopus.Action.Aws.Ecs.Deploy.AutoAssignPublicIp = "True"
-            Octopus.Action.Aws.Ecs.Deploy.Containers = "[{\"containerName\":\"#{ContainerName}\",\"containerImageReference\":{\"referenceId\":\"4e1ce51d-b043-45bf-93fb-dc33cc56bf83\",\"imageName\":\"nginx\",\"feedId\":\"Feeds-1001\"},\"repositoryAuthentication\":{\"type\":\"Default\"},\"containerPortMappings\":[],\"essential\":\"True\",\"environmentFiles\":[],\"environmentVariables\":[],\"networkSettings\":{\"disableNetworking\":\"False\",\"dnsServers\":[],\"dnsSearchDomains\":[],\"extraHosts\":[]},\"containerStorage\":{\"readOnlyRootFileSystem\":\"False\",\"mountPoints\":[],\"volumeFrom\":[]},\"containerLogging\":{\"type\":\"Manual\",\"logDriver\":\"None\",\"logOptions\":[]},\"firelensConfiguration\":{\"type\":\"Disabled\",\"enableEcsLogMetadata\":\"False\"},\"dockerLabels\":[],\"healthCheck\":{\"command\":[]},\"dependencies\":[],\"ulimits\":[]},{\"containerName\":\"#{ApplicationName}\",\"containerImageReference\":{\"referenceId\":\"72428a80-0da1-46db-88ac-a1cc07c76d4e\",\"imageName\":\"nginx/nginx-ingress\",\"feedId\":\"Feeds-1001\"},\"repositoryAuthentication\":{\"type\":\"Default\"},\"containerPortMappings\":[],\"essential\":\"True\",\"environmentFiles\":[],\"environmentVariables\":[],\"networkSettings\":{\"disableNetworking\":\"False\",\"dnsServers\":[],\"dnsSearchDomains\":[],\"extraHosts\":[]},\"containerStorage\":{\"readOnlyRootFileSystem\":\"False\",\"mountPoints\":[],\"volumeFrom\":[]},\"containerLogging\":{\"type\":\"Auto\",\"logOptions\":[]},\"firelensConfiguration\":{\"type\":\"Disabled\",\"enableEcsLogMetadata\":\"False\"},\"dockerLabels\":[],\"healthCheck\":{\"command\":[]},\"dependencies\":[],\"ulimits\":[]}]"
-            Octopus.Action.Aws.Ecs.Deploy.Cpu = "256"
-            Octopus.Action.Aws.Ecs.Deploy.DesiredCount = "1"
-            Octopus.Action.Aws.Ecs.Deploy.EnableEcsManagedTags = "False"
-            Octopus.Action.Aws.Ecs.Deploy.LoadBalancerMappings = "[]"
-            Octopus.Action.Aws.Ecs.Deploy.MaximumHealthPercent = "200"
-            Octopus.Action.Aws.Ecs.Deploy.Memory = "512"
-            Octopus.Action.Aws.Ecs.Deploy.MinimumHealthPercent = "100"
-            Octopus.Action.Aws.Ecs.Deploy.RuntimeArchitecturePlatform = "X86_64"
-            Octopus.Action.Aws.Ecs.Deploy.SecurityGroupIds = "[]"
-            Octopus.Action.Aws.Ecs.Deploy.ServiceTaskName = "faffadff"
-            Octopus.Action.Aws.Ecs.Deploy.SubnetIds = "[]"
-            Octopus.Action.Aws.Ecs.Deploy.TaskExecutionRole = "#{ContainerName}"
-            Octopus.Action.Aws.Ecs.Deploy.TaskRole = "#{ContainerName}"
-            Octopus.Action.Aws.Ecs.Deploy.Volumes = "[]"
-            Octopus.Action.Aws.Ecs.Tags = "[]"
-            Octopus.Action.Aws.Ecs.WaitOption = "{\"Type\":\"WaitWithTimeout\",\"TimeoutMinutes\":\"30\"}"
-        }
-
-        packages "4e1ce51d-b043-45bf-93fb-dc33cc56bf83" {
-            acquisition_location = "NotAcquired"
-            feed = "docker-hub"
-            package_id = "nginx"
-            properties = {
-                Extract = "False"
-            }
-        }
-
-        packages "72428a80-0da1-46db-88ac-a1cc07c76d4e" {
-            acquisition_location = "NotAcquired"
-            feed = "docker-hub"
-            package_id = "nginx/nginx-ingress"
-            properties = {
-                Extract = "False"
-            }
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = "echo ''"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
         }
     }
 }
