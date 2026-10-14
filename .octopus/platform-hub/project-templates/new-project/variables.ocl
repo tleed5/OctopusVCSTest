@@ -1,0 +1,13 @@
+variable "message" {
+    value "Dev Message" {
+        environment_parameter = ["DevEnvironment"]
+    }
+
+    value "Staging Message" {
+        environment_parameter = ["StagingEnvironment"]
+    }
+
+    value "Prod Message" {
+        environment_parameter = ["ProdEnvironment"]
+    }
+}
