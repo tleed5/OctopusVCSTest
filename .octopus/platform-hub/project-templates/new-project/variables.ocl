@@ -11,3 +11,7 @@ variable "message" {
         environment_parameter = ["ProdEnvironment"]
     }
 }
+
+variable "Qwettawr" {
+    value "faddfa" {}
+}
