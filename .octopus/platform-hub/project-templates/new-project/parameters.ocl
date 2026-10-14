@@ -21,3 +21,21 @@ parameter "ProdEnvironment" {
     help_text = ""
     label = "Production Environment"
 }
+
+parameter "param-message" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = ""
+    label = "Param Message"
+
+    value "Hello" {}
+}
+
+parameter "targets" {
+    display_settings = {
+        Octopus.ControlType = "TargetTags"
+    }
+    help_text = ""
+    label = "Targets"
+}
