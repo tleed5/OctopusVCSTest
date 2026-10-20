@@ -3,3 +3,9 @@ variable "InflightCertificateVariable" {
 
     value "inflightvariablescert" {}
 }
+
+variable "InflightVariable2" {
+    type = "Certificate"
+
+    value "inflightvariables2" {}
+}
