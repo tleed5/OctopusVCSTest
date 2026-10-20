@@ -29,3 +29,11 @@ parameter "Cert" {
     help_text = ""
     label = ""
 }
+
+parameter "WorkerPool" {
+    display_settings = {
+        Octopus.ControlType = "WorkerPool"
+    }
+    help_text = ""
+    label = ""
+}
