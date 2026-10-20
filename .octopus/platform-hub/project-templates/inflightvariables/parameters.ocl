@@ -21,3 +21,11 @@ parameter "ProdEnvironment" {
     help_text = ""
     label = "Production Environment"
 }
+
+parameter "Cert" {
+    display_settings = {
+        Octopus.ControlType = "Certificate"
+    }
+    help_text = ""
+    label = ""
+}
