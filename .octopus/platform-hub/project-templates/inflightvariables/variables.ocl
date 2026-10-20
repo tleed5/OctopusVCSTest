@@ -9,3 +9,9 @@ variable "InflightVariable2" {
 
     value "inflightvariables2" {}
 }
+
+variable "dadads" {
+    type = "Certificate"
+
+    value "fadfdaf" {}
+}
