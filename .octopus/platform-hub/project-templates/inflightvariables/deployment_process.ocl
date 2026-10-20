@@ -1,0 +1,15 @@
+step "import-cert" {
+    name = "Import Cert"
+
+    action {
+        action_type = "Octopus.Certificate.Import"
+        properties = {
+            Octopus.Action.Certificate.PrivateKeyAccessRules = "[]"
+            Octopus.Action.Certificate.PrivateKeyExportable = "False"
+            Octopus.Action.Certificate.StoreLocation = "LocalMachine"
+            Octopus.Action.Certificate.StoreName = "My"
+            Octopus.Action.Certificate.Variable = "#{Cert}"
+        }
+        worker_pool_variable = ""
+    }
+}
