@@ -15,3 +15,9 @@ variable "dadads" {
 
     value "fadfdaf" {}
 }
+
+variable "QWeqw" {
+    type = "Certificate"
+
+    value "inflightvariables2" {}
+}
