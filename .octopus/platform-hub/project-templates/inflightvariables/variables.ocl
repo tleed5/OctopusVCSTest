@@ -21,3 +21,9 @@ variable "QWeqw" {
 
     value "inflightvariables2" {}
 }
+
+variable "AWSAccount" {
+    type = "AmazonWebServicesAccount"
+
+    value "awsaccount" {}
+}
