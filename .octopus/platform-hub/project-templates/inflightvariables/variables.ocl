@@ -32,4 +32,6 @@ variable "NewCert" {
     type = "Certificate"
 
     value "inflightvariables2" {}
+
+    value "inflightvariablescert" {}
 }
