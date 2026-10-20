@@ -1,0 +1,5 @@
+variable "InflightCertificateVariable" {
+    type = "Certificate"
+
+    value "inflightvariablescert" {}
+}
