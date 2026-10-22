@@ -1,0 +1,5 @@
+variable "VariableMessage" {
+    value "VariableMessage" {
+        environment_parameter = ["DevelopmentEnvironment"]
+    }
+}
