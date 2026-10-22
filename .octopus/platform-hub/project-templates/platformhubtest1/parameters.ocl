@@ -29,3 +29,19 @@ parameter "AnotherEnvironmentParameter" {
     help_text = ""
     label = ""
 }
+
+parameter "_@#!#!@$@!@$" {
+    display_settings = {
+        Octopus.ControlType = "Project"
+    }
+    help_text = ""
+    label = ""
+}
+
+parameter "$!@&*$^!@&*#^!@*" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = ""
+    label = ""
+}
