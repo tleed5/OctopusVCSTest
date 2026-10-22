@@ -1,0 +1,8 @@
+name = "PlatformHubTest1"
+description = ""
+lifecycle = "default"
+
+icon {
+    color = "#757575"
+    id = "layer-group"
+}
