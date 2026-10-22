@@ -1,7 +1,0 @@
-parameter "DevEnvironment" {
-    display_settings = {
-        Octopus.ControlType = "Environments"
-    }
-    help_text = ""
-    label = "Development Environment"
-}
