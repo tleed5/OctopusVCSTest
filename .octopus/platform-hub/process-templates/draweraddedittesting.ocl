@@ -1,2 +1,39 @@
 name = "DrawerAddEditTesting"
 description = ""
+
+parameter "MyParameter" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "heehee hoohoo"
+    is_optional = true
+    label = "This is a parameter"
+
+    value "Default" {}
+}
+
+parameter "Sensitive" {
+    display_settings = {
+        Octopus.ControlType = "Sensitive"
+    }
+    help_text = ""
+    is_optional = true
+    label = ""
+
+    value "9ba6f91b-66dd-4ee9-bf14-9a5cae0528e4" {}
+}
+
+parameter "DropDown" {
+    display_settings = {
+        Octopus.ControlType = "Select"
+        Octopus.SelectOptions = <<-EOT
+            val1|Value 1
+            val2|Value 2
+            val3|Value 3
+            EOT
+    }
+    help_text = ""
+    label = ""
+
+    value "val1" {}
+}
