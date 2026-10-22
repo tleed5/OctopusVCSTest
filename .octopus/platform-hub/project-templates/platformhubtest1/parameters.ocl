@@ -5,3 +5,27 @@ parameter "DevelopmentEnvironment" {
     help_text = ""
     label = "Dev"
 }
+
+parameter "Targets" {
+    display_settings = {
+        Octopus.ControlType = "TargetTags"
+    }
+    help_text = ""
+    label = ""
+}
+
+parameter "Message" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = ""
+    label = ""
+}
+
+parameter "AnotherEnvironmentParameter" {
+    display_settings = {
+        Octopus.ControlType = "Environments"
+    }
+    help_text = ""
+    label = ""
+}
