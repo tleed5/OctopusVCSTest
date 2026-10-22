@@ -1,0 +1,21 @@
+step "run-a-script" {
+    name = "Run a Script"
+    properties = {
+        Octopus.Action.TargetRoles = "#{Targets}"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        environments_variables = ["#{AnotherEnvironmentParameter}"]
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                echo '$(get_octopusvariable "Message")'
+                echo '$(get_octopusvariable "VariableMessage")'
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+        }
+        worker_pool_variable = ""
+    }
+}
