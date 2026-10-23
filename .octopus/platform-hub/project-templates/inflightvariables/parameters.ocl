@@ -45,3 +45,11 @@ parameter "Multiline" {
     help_text = ""
     label = ""
 }
+
+parameter "Targets" {
+    display_settings = {
+        Octopus.ControlType = "TargetTags"
+    }
+    help_text = ""
+    label = ""
+}
