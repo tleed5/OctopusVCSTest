@@ -62,6 +62,14 @@ parameter "dwadwadsd" {
     label = ""
 }
 
+parameter "CertificateParam" {
+    display_settings = {
+        Octopus.ControlType = "Certificate"
+    }
+    help_text = ""
+    label = ""
+}
+
 step "run-a-script" {
     name = "Run a Script"
     properties = {
@@ -79,10 +87,34 @@ step "run-a-script" {
 
         packages {
             acquisition_location = "Server"
+            feed = "octopus-server-built-in"
+            package_id = ""
             properties = {
                 PackageParameterName = "dwadwadsd"
                 SelectionMode = "deferred"
             }
         }
+    }
+}
+
+step "configure-and-apply-a-kubernetes-ingress" {
+    name = "Configure and apply a Kubernetes Ingress"
+    properties = {
+        Octopus.Action.TargetRoles = "#{fadfasd}"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployIngress"
+        properties = {
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.DefaultRulePort = "123"
+            Octopus.Action.KubernetesContainers.DefaultRuleServiceName = "3dafdsfasdf"
+            Octopus.Action.KubernetesContainers.IngressAnnotations = "[]"
+            Octopus.Action.KubernetesContainers.IngressName = "sdasd"
+        }
+        worker_pool_variable = ""
     }
 }
