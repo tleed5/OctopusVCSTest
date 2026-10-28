@@ -1,0 +1,7 @@
+parameter "NewParam" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = ""
+    label = ""
+}
