@@ -21,3 +21,19 @@ parameter "ProdEnvironment" {
     help_text = ""
     label = "Production Environment"
 }
+
+parameter "WorkerPool" {
+    display_settings = {
+        Octopus.ControlType = "WorkerPool"
+    }
+    help_text = "Where the script should execute"
+    label = "Worker Pool"
+}
+
+parameter "Message" {
+    display_settings = {
+        Octopus.ControlType = "SingleLineText"
+    }
+    help_text = "What the script should say"
+    label = "Script Message"
+}
