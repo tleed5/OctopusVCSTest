@@ -7,15 +7,10 @@ step "run-gcloud-in-a-script" {
             Octopus.Action.GoogleCloud.ImpersonateServiceAccount = "False"
             Octopus.Action.GoogleCloud.UseVMServiceAccount = "False"
             Octopus.Action.GoogleCloudAccount.Variable = "asdf"
-            Octopus.Action.Script.ScriptSource = "Package"
+            Octopus.Action.Script.ScriptBody = "echo \"hello world\""
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
         }
         worker_pool_variable = "#{asdfa}"
-
-        packages {
-            acquisition_location = "Server"
-            properties = {
-                SelectionMode = "immediate"
-            }
-        }
     }
 }
