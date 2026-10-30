@@ -1,0 +1,5 @@
+variable "asdf" {
+    type = "GoogleCloudAccount"
+
+    value "asdf" {}
+}
