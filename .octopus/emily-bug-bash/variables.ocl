@@ -1,0 +1,5 @@
+variable "multi environment var" {
+    value "forEveryone" {
+        environment = ["development", "production", "staging"]
+    }
+}
