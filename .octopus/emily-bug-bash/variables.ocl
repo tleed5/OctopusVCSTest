@@ -3,3 +3,7 @@ variable "multi environment var" {
         environment = ["development", "production", "staging"]
     }
 }
+
+variable "anothernew var" {
+    value "awesomesauce" {}
+}
