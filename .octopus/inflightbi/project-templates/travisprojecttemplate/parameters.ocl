@@ -34,6 +34,6 @@ parameter "Message" {
     display_settings = {
         Octopus.ControlType = "SingleLineText"
     }
-    help_text = "What the script should say"
+    help_text = "What the script should say(Can edit)"
     label = "Script Message"
 }
