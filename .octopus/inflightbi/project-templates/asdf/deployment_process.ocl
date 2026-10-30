@@ -1,0 +1,15 @@
+step "run-gcloud-in-a-script" {
+    name = "Run gcloud in a Script"
+
+    action {
+        action_type = "Octopus.GoogleCloudScripting"
+        properties = {
+            Octopus.Action.GoogleCloud.ImpersonateServiceAccount = "False"
+            Octopus.Action.GoogleCloud.UseVMServiceAccount = "False"
+            Octopus.Action.GoogleCloudAccount.Variable = "asdf"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
