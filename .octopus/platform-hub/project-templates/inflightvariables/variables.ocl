@@ -39,3 +39,9 @@ variable "NewCert" {
 variable "InflightEvennewer" {
     value "" {}
 }
+
+variable "Weeewww" {
+    type = "Certificate"
+
+    value "fdadsfd" {}
+}
