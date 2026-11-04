@@ -1,9 +1,0 @@
-name = "Default Lifecycle"
-
-release_retention_policy {
-    type = "Default"
-}
-
-tentacle_retention_policy {
-    type = "Default"
-}

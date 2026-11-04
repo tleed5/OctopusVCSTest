@@ -1,5 +1,0 @@
-variable "Cert" {
-    type = "Certificate"
-
-    value "platform-hub-cert" {}
-}
